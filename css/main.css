@@ -188,3 +188,88 @@ body{
 	left: 150px;
 	margin-top: 20px
 }
+
+
+.bottom-bg{
+	height: 550px;
+	width: 1200px;
+	margin-top: 350px;
+	position: absolute;
+	background: url("../imges/Triangle1x.png");
+}
+
+.spin{
+	background-image:linear-gradient(-180deg, #fdff71 0%, #ffeb00 100%);
+	border:6px solid #000000;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(255,255,255,0.50);
+	border-radius:8px;
+	width:177px;
+	height:67px;
+	z-index: 12;
+	position: absolute;
+	bottom: 70px;
+	left:400px;
+	font-size:48px;
+	color:#000000;
+	letter-spacing:0;
+	text-align:center;
+	font-weight: 700;
+	box-shadow: 10px 10px 10px #000;
+}
+
+.gen{
+	background-image:linear-gradient(-180deg, #fdff71 0%, #ffeb00 100%);
+	border:6px solid #000000;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(255,255,255,0.50);
+	border-radius:8px;
+	width:177px;
+	height:67px;
+	position: absolute;
+	bottom: 70px;
+	left:700px;
+	font-size:48px;
+	color:#000000;
+	letter-spacing:0;
+	text-align:center;
+	font-weight: 700;
+	box-shadow: 10px 10px 10px #000;
+}
+.leave{
+	background-image:linear-gradient(-180deg, #ff5757 0%, #ea0000 100%);
+	border:6px solid #000000;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(255,255,255,0.50);
+	border-radius:8px;
+	width:177px;
+	height:67px;
+	position: absolute;
+	bottom: 70px;
+	left: 1000px;
+	font-size: 48px;
+	color: #000000;
+	letter-spacing: 0;
+	text-align: center;
+	font-weight: 700;
+    box-shadow: 10px 10px 10px #000;
+}
+
+.adorn-top{
+	border: 12px solid #fff900;
+	width: 12px;
+	position: absolute;
+	left: -40px;
+	box-shadow: 0 12px 1px #000;
+	top: 45px;
+	transform: rotate(-20deg);
+	z-index: 12;
+}
+
+.adorn-bottom{
+	border: 12px solid #6ed9ff;
+	width: 12px;
+	position: absolute;
+	left: -40px;
+	box-shadow: 0 12px 1px #000;
+	top: 95px;
+	transform: rotate(-20deg);
+	z-index: 12;
+}
