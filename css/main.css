@@ -43,9 +43,14 @@ body{
 	  flex-direction: column;
 	  background: #ff91de;
 	  z-index: 11;
+
   }
 
-
+.box1-left div:hover,.center-box-top div:hover,.center-box-bottom div:hover,.box3-right div:hover{
+	border:2px solid #00b6ff;
+	box-shadow:0 1px  1px #ffffff;
+	transform: rotate(45deg);
+}
   .box2-center{
 	  width: 880px;
 	  height:680px;
@@ -110,14 +115,18 @@ body{
 	text-align:center;
 	font-weight: 800;
 	margin-top: 30px;
-	text-shadow: 5px 5px 5px #000;
+	text-shadow: 5px 5px 5px #000000;
 }
 .bet-num{
 	font-size:100px;
 	color:#ffffff;
 	letter-spacing:0;
 	text-align:center;
-	font-weight: 500;
+	font-weight: 900;
+	margin-top: 20px;
+	box-shadow: 0 5px 0 #23a4ff;
+	width: 100px;
+	margin-left: 120px;
 }
 .big{
 	height:60px;
@@ -126,7 +135,8 @@ body{
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 800;
-	margin-top: 110px;
+	margin-top: 90px;
+	text-shadow: 5px 5px 5px #000000;
 }
 .cirlce-left{
 	background-image: linear-gradient(-180deg, #ff7878 0%, #fc4444 100%);
@@ -149,6 +159,8 @@ body{
 	position: absolute;
 	align-items: center;
 	margin-left: 60px;
+	font-weight: 900;
+	border-bottom: 5px solid #23a4ff;
 }
 
 .credits{
@@ -159,14 +171,18 @@ body{
 	text-align:center;
 	font-weight: 800;
 	margin-top: 30px;
-	text-shadow: 5px 5px 5px #000;
+	text-shadow: 5px 5px 5px #000000;
 }
 .credits-num{
 	font-size:100px;
 	color:#ffffff;
 	letter-spacing:0;
 	text-align:center;
-	font-weight: 500;
+	font-weight: 900;
+	margin-top: 20px;
+	box-shadow: 0 5px 0 #23a4ff;
+	width: 100px;
+	margin-left: 120px;
 }
 .small{
 	height:60px;
@@ -175,7 +191,8 @@ body{
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 800;
-	margin-top: 110px;
+	margin-top: 90px;
+	text-shadow: 5px 5px 5px #000000;
 }
 .cirlce-right{
 	background-image: linear-gradient(-180deg, #ff7878 0%, #fc4444 100%);
@@ -234,6 +251,8 @@ body{
 	font-weight: 700;
 	box-shadow: 10px 10px 2px #000;
 }
+
+
 .leave{
 	background-image:linear-gradient(-180deg, #ff5757 0%, #ea0000 100%);
 	border:6px solid #000000;
@@ -251,7 +270,10 @@ body{
 	font-weight: 700;
     box-shadow: 10px 10px 2px #000;
 }
-
+.spin:hover,.gen:hover,.leave:hover{
+	color: #65cfff;
+	transform: scale(1.2)
+}
 .adorn-top{
 	border: 12px solid #fff900;
 	width: 12px;
@@ -272,4 +294,23 @@ body{
 	top: 95px;
 	transform: rotate(-20deg);
 	z-index: 12;
+}
+
+.horizontal-box{
+	position: absolute;
+	width: 50px;
+	height: 10px;
+	background: #000000;
+	right: -45px;
+	top: 150px;
+	z-index: 12;
+}
+
+.vertical-box{
+	position: absolute;
+	width: 10px;
+	height: 50px;
+	background: #000000;
+	right: -25px;
+	top: 130px;
 }
