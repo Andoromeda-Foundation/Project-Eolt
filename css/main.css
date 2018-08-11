@@ -23,6 +23,7 @@ body{
 	  width:1100px;
 	  height:680px;
 	  z-index: 10;
+	  margin-left: 90px;
   }
   .main-bg{
 	  position: absolute;
@@ -30,7 +31,7 @@ body{
 	  border:6px solid #000000;
 	  width:1100px;
 	  height:680px;
-	  left: 70px;
+	  left: 160px;
 	  top:20px;
 	  z-index: 9;
   }
@@ -109,6 +110,7 @@ body{
 	text-align:center;
 	font-weight: 800;
 	margin-top: 30px;
+	text-shadow: 5px 5px 5px #000;
 }
 .bet-num{
 	font-size:100px;
@@ -157,6 +159,7 @@ body{
 	text-align:center;
 	font-weight: 800;
 	margin-top: 30px;
+	text-shadow: 5px 5px 5px #000;
 }
 .credits-num{
 	font-size:100px;
