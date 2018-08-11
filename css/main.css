@@ -214,7 +214,7 @@ body{
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 700;
-	box-shadow: 10px 10px 10px #000;
+	box-shadow: 10px 10px 2px #000;
 }
 
 .gen{
@@ -232,7 +232,7 @@ body{
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 700;
-	box-shadow: 10px 10px 10px #000;
+	box-shadow: 10px 10px 2px #000;
 }
 .leave{
 	background-image:linear-gradient(-180deg, #ff5757 0%, #ea0000 100%);
@@ -249,7 +249,7 @@ body{
 	letter-spacing: 0;
 	text-align: center;
 	font-weight: 700;
-    box-shadow: 10px 10px 10px #000;
+    box-shadow: 10px 10px 2px #000;
 }
 
 .adorn-top{
