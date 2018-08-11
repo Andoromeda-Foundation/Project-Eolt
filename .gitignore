@@ -6,7 +6,7 @@
 # production
 /build
 indexv1.0.html
-css/main1.0.css
+css/mainv1.0.css
 
 npm-debug.log*
 yarn-debug.log*
