@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>EOS 老虎机</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <script src="https://unpkg.com/vue"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/cube-top.css">
 <link rel="stylesheet" type="text/css" href="css/cube.css">
 <link rel="stylesheet/less" type="text/css" href="css/main.less">
+
 <body>
-<div class="contain">
+<div class="app" id="app">
     <div class="main">
         <div class="adorn-top"></div>
         <div class="adorn-bottom"></div>
@@ -106,11 +108,13 @@
         <source src="music/tiger.mp3" type="audio/mp3">
     </audio>
 </div>
+
 <script src="js/less.js"></script>
 <script src="js/lib/jquery.js"></script>
 <script src="js/playmusic.js"></script>
+<script src="js/lib/dasdaq.queryview.js"></script>
+<script src="js/main.js" onload="app.init_scatter()"></script>
 <script>
-
     $("#musicId").on("click",function () {
         swap_music("imgId");
     })
