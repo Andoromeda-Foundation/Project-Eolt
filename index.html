@@ -93,11 +93,26 @@
             <div class="left"></div>
             <div class="right"></div>
         </div>
-        <button class="spin"> Spin</button>
+        <button id="spinId" class="spin"> Spin</button>
         <button class="gen"> Gen</button>
         <button class="leave"> Leave</button>
+        <div class="music-play" id="musicId">
+            <img id="imgId" src="imges/play.jpg">
+        </div>
     </div>
+
+    <audio  id="audioId" loop="loop" preload="auto" autoplay="autoplay">
+        <source src="music/tiger.mp3" type="audio/mp3">
+    </audio>
 </div>
 <script src="js/less.js"></script>
+<script src="js/lib/jquery.js"></script>
+<script src="js/playmusic.js"></script>
+<script>
+
+    $("#musicId").on("click",function () {
+        swap_music("imgId");
+    })
+</script>
 </body>
 </html>

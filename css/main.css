@@ -314,3 +314,16 @@ body{
 	right: -25px;
 	top: 130px;
 }
+
+.music-play img{
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	bottom: 2px;
+	margin: 2px;
+	border-radius: 100%;
+	/*background: url("../imges/pause.jpg") no-repeat;*/
+}
+.music-play img:hover{
+	transform: scale(1.2);
+}
