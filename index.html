@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>EOS 老虎机</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -11,113 +12,115 @@
 <link rel="stylesheet/less" type="text/css" href="css/main.less">
 
 <body>
-<div class="app" id="app">
-    <div class="main" id="lottery">
-    <div class="main">
-        <div class="adorn-top"></div>
-        <div class="adorn-bottom"></div>
-        <div class="box1-left">
-            <div class="img-box0"></div>
-            <div class="img-box2"></div>
-            <div class="img-box3"></div>
-            <div class="img-box4"></div>
-            <div class="img-box5"></div>
-            <div class="img-box6"></div>
-        </div>
-        <div class="box2-center">
-            <div class="box2-contain">
-                <div class="center-box-top">
-                    <div class="img-box13"></div>
-                    <div class="img-box14"></div>
-                    <div class="img-box15"></div>
-                    <div class="img-box16"></div>
-                    <div class="img-box17"></div>
-                    <div class="img-box18"></div>
-                    <div class="img-box19"></div>
-                    <div class="img-box20"></div>
-                </div>
-                <div class="center-box-center">
-                    <div class="center-box-center-left">
-                        <div class="bet">bet</div>
-                        <div class="bet-num">70</div>
-                        <div class="big">Big</div>
-                        <div class="cirlce-left"></div>
+    <div class="app" id="app">
+        <div class="main" id="lottery">
+            <div class="adorn-top"></div>
+            <div class="adorn-bottom"></div>
+            <div class="box1-left">
+                <div class="img-box img-box1" v-bind:class="{selected: index == 1}"></div>
+                <div class="img-box img-box2" v-bind:class="{selected: index == 2}"></div>
+                <div class="img-box img-box3" v-bind:class="{selected: index == 3}"></div>
+                <div class="img-box img-box4" v-bind:class="{selected: index == 4}"></div>
+                <div class="img-box img-box5" v-bind:class="{selected: index == 5}"></div>
+                <div class="img-box img-box6" v-bind:class="{selected: index == 6}"></div>
+            </div>
+            <div class="box2-center">
+                <div class="box2-contain">
+                    <div class="center-box-top">
+                        <div class="img-box img-box13" v-bind:class="{selected: index == 13}"></div>
+                        <div class="img-box img-box14" v-bind:class="{selected: index == 14}"></div>
+                        <div class="img-box img-box15" v-bind:class="{selected: index == 15}"></div>
+                        <div class="img-box img-box16" v-bind:class="{selected: index == 16}"></div>
+                        <div class="img-box img-box17" v-bind:class="{selected: index == 17}"></div>
+                        <div class="img-box img-box18" v-bind:class="{selected: index == 18}"></div>
+                        <div class="img-box img-box19" v-bind:class="{selected: index == 19}"></div>
+                        <div class="img-box img-box20" v-bind:class="{selected: index == 20}"></div>
                     </div>
-                    <div class="center-box-center-center">
-                       <div class="center-num"><span>0</span></div>
+                    <div class="center-box-center">
+                        <div class="center-box-center-left">
+                            <div class="bet">bet</div>
+                            <div class="bet-num">70</div>
+                            <!-- <div class="big">Big</div>
+                            <div class="cirlce-left"></div> -->
+                        </div>
+                        <div class="center-box-center-center">
+                            <div class="center-num">
+                                <span>0</span>
+                            </div>
+                        </div>
+                        <div class="center-box-center-right">
+                            <div class="credits">credits</div>
+                            <div class="credits-num">80</div>
+                            <!-- <div class="small">Small</div>
+                            <div class="cirlce-right"></div> -->
+                        </div>
                     </div>
-                    <div class="center-box-center-right">
-                        <div class="credits">credits</div>
-                        <div class="credits-num">80</div>
-                        <div class="small">Small</div>
-                        <div class="cirlce-right"></div>
+                    <div class="center-box-bottom">
+                        <div class="img-box img-box21" v-bind:class="{selected: index == 21}"></div>
+                        <div class="img-box img-box22" v-bind:class="{selected: index == 22}"></div>
+                        <div class="img-box img-box23" v-bind:class="{selected: index == 23}"></div>
+                        <div class="img-box img-box24" v-bind:class="{selected: index == 24}"></div>
+                        <div class="img-box img-box25" v-bind:class="{selected: index == 25}"></div>
+                        <div class="img-box img-box26" v-bind:class="{selected: index == 26}"></div>
+                        <div class="img-box img-box27" v-bind:class="{selected: index == 27}"></div>
+                        <div class="img-box img-box28" v-bind:class="{selected: index == 28}"></div>
                     </div>
-                </div>
-                <div class="center-box-bottom">
-
-                    <div class="img-box21"></div>
-                    <div class="img-box22"></div>
-                    <div class="img-box23"></div>
-                    <div class="img-box24"></div>
-                    <div class="img-box25"></div>
-                    <div class="img-box26"></div>
-                    <div class="img-box27"></div>
-                    <div class="img-box28"></div>
                 </div>
             </div>
+            <div class="box3-right">
+                <div class="img-box img-box7" v-bind:class="{selected: index == 7}"></div>
+                <div class="img-box img-box8" v-bind:class="{selected: index == 8}"></div>
+                <div class="img-box img-box9" v-bind:class="{selected: index == 9}"></div>
+                <div class="img-box img-box10" v-bind:class="{selected: index == 10}"></div>
+                <div class="img-box img-box11" v-bind:class="{selected: index == 11}"></div>
+                <div class="img-box img-box12" v-bind:class="{selected: index == 12}"></div>
+            </div>
         </div>
-        <div class="box3-right">
-            <div class="img-box7"></div>
-            <div class="img-box8"></div>
-            <div class="img-box9"></div>
-            <div class="img-box10"></div>
-            <div class="img-box11"></div>
-            <div class="img-box12"></div>
+        <div class="main-bg">
+            <div class="horizontal-box"></div>
+            <div class="vertical-box"></div>
         </div>
-    </div>
-    <div class="main-bg">
-        <div class="horizontal-box"></div>
-        <div class="vertical-box"></div>
-    </div>
-    <div class="bottom-bg">
-        <div class="cube-top-box">
-            <div class="top-front"></div>
-            <div class="top-bottom"></div>
-            <div class="top-back"></div>
-            <div class="top-top"></div>
-            <div class="top-left"></div>
-            <div class="top-right"></div>
+        <div class="bottom-bg">
+            <div class="cube-top-box">
+                <div class="top-front"></div>
+                <div class="top-bottom"></div>
+                <div class="top-back"></div>
+                <div class="top-top"></div>
+                <div class="top-left"></div>
+                <div class="top-right"></div>
+            </div>
+            <div class="cube-box">
+                <div class="front"></div>
+                <div class="bottom"></div>
+                <div class="back"></div>
+                <div class="top"></div>
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+            <button id="spinId" class="spin" onclick="app.start_roll()"> Spin</button>
+            <button class="gen"> Gen</button>
+            <button class="leave"> Leave</button>
+            <div class="music-play" id="musicId">
+                <img id="imgId" src="imges/pause.jpg">
+            </div>
         </div>
-        <div class="cube-box">
-            <div class="front"></div>
-            <div class="bottom"></div>
-            <div class="back"></div>
-            <div class="top"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-        </div>
-        <button id="spinId" class="spin"> Spin</button>
-        <button class="gen"> Gen</button>
-        <button class="leave"> Leave</button>
-        <div class="music-play" id="musicId">
-            <img id="imgId" src="imges/pause.jpg">
-        </div>
+
     </div>
 
-    <audio  id="audioId" loop="loop" preload="auto" autoplay="autoplay">
+    <audio id="audioId" loop="loop" preload="auto" autoplay="autoplay">
         <source src="music/tiger.mp3" type="audio/mp3">
     </audio>
-</div>
 
-<script src="js/less.js"></script>
-<script src="js/lib/jquery.js"></script>
-<script src="js/playmusic.js"></script>
-<script src="js/lib/dasdaq.queryview.js"></script>
-<script src="js/main.js" onload="app.init_scatter()"></script>
-<script>
-    $("#musicId").on("click",function () {
-        swap_music("imgId");
-    })
-</script>
+    <script src="js/less.js"></script>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/playmusic.js"></script>
+    <script src="js/lib/dasdaq.queryview.js"></script>
+    <script src="js/main.js" onload="app.init_scatter()"></script>
+    <script>
+        $("#musicId").on("click", function () {
+            swap_music("imgId");
+        })
+    </script>
 </body>
+
 </html>
