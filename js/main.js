@@ -12,7 +12,16 @@ app = new Vue({
         account: null,
         chainId: null,
         user_eos_balance: null,
-        user_score_balance: null
+        user_score_balance: null,
+        round_info: '准备',
+        index: 0,    //当前转动到哪个位置，起点位置
+        count: 28,    //总共有多少个位置
+        speed: 20,    //初始转动速度
+        cycle: 3,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+        timer: 0,    //setTimeout的ID，用clearTimeout清除
+        times: 0,
+        prize: -1,    //中奖位置
+        running: false // 正在抽奖
     },
     created: function () {
     },
@@ -82,9 +91,9 @@ app = new Vue({
         },
         getPublicKey: function () {
             return qv.get(`/api/chain/account/${this.account.name}/perm/${this.account.authority}`, {})
-            .then(x => {
-                return Promise.resolve(x.data);
-            });
+                .then(x => {
+                    return Promise.resolve(x.data);
+                });
         },
         updateAuth: function () {
             this.notification('pending', '正在对合约账户授权');
@@ -128,12 +137,12 @@ app = new Vue({
                         console.warn(amount);
                         return contract.buy(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
                     })
-                    .then(() => {
-                        this.notification('succeeded', '充值成功');
-                    })
-                    .catch((err) => {
-                        this.notification('error', '充值成功', err.toString());
-                    });
+                        .then(() => {
+                            this.notification('succeeded', '充值成功');
+                        })
+                        .catch((err) => {
+                            this.notification('error', '充值成功', err.toString());
+                        });
                 });
         },
         withdraw: function (amount) {
@@ -143,12 +152,12 @@ app = new Vue({
                 console.log(contract);
                 return contract.sell(this.account.name, parseInt(amount), { authorization: [`${this.account.name}@${this.account.authority}`] });
             })
-            .then(() => {
-                this.notification('succeeded', '兑换成功');
-            })
-            .catch((err) => {
-                this.notification('error', '兑换失败', err.toString());
-            });
+                .then(() => {
+                    this.notification('succeeded', '兑换成功');
+                })
+                .catch((err) => {
+                    this.notification('error', '兑换失败', err.toString());
+                });
         },
         init_scatter: function () {
             if (!('scatter' in window)) {
@@ -177,78 +186,55 @@ app = new Vue({
                 .catch(err => {
                     this.notification('error', 'Scatter初始化失败', err.toString());
                 });
-            lottery.init("lottery");
+        },
+        roll: function () {
+            var index = this.index;
+            var count = this.count;
+            index += 1;
+            if (index > count) {
+                index -= count
+            }
+            this.index = index;
+            return false;
+        },
+        start_roll: function () {
+            if (this.running) return;
+            this.running = true;
+            this.roll_loop();
+        },
+        roll_loop: function () {
+            this.times += 1;
+            this.roll();
+            if (this.times > this.cycle + 10 && this.prize == this.index) {
+                clearTimeout(this.timer);
+                this.prize = -1;
+                this.times = 0;
+                this.running = false;
+            } else {
+                if (this.times < this.cycle) {
+                    this.speed -= 10;
+                } else {
+                    if (this.prize != -1) {
+                        if (this.times > this.cycle + 10 && ((this.prize == 1 && this.index == this.count) || this.prize == this.index + 1)) {
+                            this.speed += 110;
+                        } else {
+                            this.speed += 20;
+                        }
+                    }
+                }
+                if (this.speed < 40) {
+                    this.speed = 40;
+                };
+                if (this.speed > 500) {
+                    this.speed = 500;
+                }
+                this.timer = setTimeout(this.roll_loop, this.speed);//循环调用
+            }
+        },
+        stop_at: function(stop_position) {
+            this.prize = stop_position
         },
     },
     computed: {
     }
 });
-
-var lottery={
-    index:-1,    //当前转动到哪个位置，起点位置
-    count:0,    //总共有多少个位置
-    speed:20,    //初始转动速度
-    cycle:100,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
-    timer:0,    //setTimeout的ID，用clearTimeout清除
-    prize:-1,    //中奖位置
-    running: false, // 正在抽奖
-    init:function(id){
-        if ($("#"+id).find(".img-box").length>0) {
-            $lottery = $("#"+id);
-            $units = $lottery.find(".lottery-unit");
-            this.obj = $lottery;
-            this.count = $units.length;
-            $lottery.find(".lottery-unit-"+this.index).addClass("active");
-        };
-    },
-    roll:function(){
-        var index = this.index;
-        var count = this.count;
-        var lottery = this.obj;
-        $(lottery).find(".lottery-unit-"+index).removeClass("active");
-        index += 1;
-        if (index>count-1) {
-            index = 0;
-        };
-        $(lottery).find(".lottery-unit-"+index).addClass("active");
-        this.index=index;
-        return false;
-    },
-    stop:function(index){
-        this.prize=index;
-        return false;
-    }
-};
-
-function roll_cycle(){
-    lottery.times += 1;
-    lottery.roll();  //转动过程调用的是lottery的roll方法，这里是第一次调用初始化
-    if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
-        clearTimeout(lottery.timer);
-        lottery.prize=-1;
-        lottery.times=0;
-        lottery.running = false;
-    }else{
-        if (lottery.times<lottery.cycle) {
-            lottery.speed -= 10;
-        }else{
-            if (lottery.prize != -1) {
-                if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
-                    lottery.speed += 110;
-                }else{
-                    lottery.speed += 20;
-                }
-            }
-        }
-        if (lottery.speed<40) {
-            lottery.speed=40;
-        };
-        //console.log(lottery.times+'^^^^^^'+lottery.speed+'^^^^^^^'+lottery.prize);
-        lottery.timer = setTimeout(roll,lottery.speed);//循环调用
-    }
-}
-
-function start_role() {
-    lottery.running = true;
-    roll_cycle();
-}
