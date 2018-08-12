@@ -8,9 +8,9 @@ function swap_music(id) {
     var playEvent=document.getElementById(id);
     if(oAudio.paused){
         oAudio.play();
-        $("#"+id).attr('src',"../imges/pause.jpg");
+        $("#"+id).attr('src',"imges/pause.jpg");
     }else {
         oAudio.pause();
-        $("#"+id).attr('src',"../imges/play.jpg");
+        $("#"+id).attr('src',"imges/play.jpg");
     }
 }
