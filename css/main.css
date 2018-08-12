@@ -8,6 +8,8 @@ body{
 	position: relative;
 	background: url("../imges/bg1.jpg") no-repeat;
 	background-size: 100% auto;
+	-webkit-background-size: 100% auto;
+
 }
   .contain{
 	  margin:50px;
