@@ -7,9 +7,9 @@ body{
 	height: 100%;
 	position: relative;
 	background: url("../imges/bg1.jpg") no-repeat;
-	background-size: 100%;
-	-webkit-background-image: url("../imges/bg.jpg");
-	-webkit-background-size: 100%;
+	background-size: 100% auto;
+	/*-webkit-background-image: url("../imges/bg.jpg");*/
+	-webkit-background-size: 100% auto;
 
 }
   .contain{
