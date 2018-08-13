@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD
  * Vue.js v2.5.17
+=======
+ * Vue.js v2.5.16
+>>>>>>> master
  * (c) 2014-2018 Evan You
  * Released under the MIT License.
  */
@@ -5075,7 +5079,11 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
+<<<<<<< HEAD
 Vue.version = '2.5.17';
+=======
+Vue.version = '2.5.16';
+>>>>>>> master
 
 /*  */
 
@@ -10944,4 +10952,8 @@ Vue.compile = compileToFunctions;
 
 return Vue;
 
+<<<<<<< HEAD
 })));
+=======
+})));
+>>>>>>> master
