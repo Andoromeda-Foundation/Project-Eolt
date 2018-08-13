@@ -4,7 +4,7 @@
 <head>
     <title>EOS 老虎机</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <script src="https://unpkg.com/vue"></script>
+    <script src="js/lib/vue.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/cube-top.css">
@@ -35,13 +35,6 @@
                         <div class="img-box img-box18" v-bind:class="{selected: index == 18}"></div>
                         <div class="img-box img-box19" v-bind:class="{selected: index == 19}"></div>
                         <div class="img-box img-box20" v-bind:class="{selected: index == 20}"></div>
-                    </div>
-                    <div class="center-box-center">
-                        <div class="center-box-center-left">
-                            <div class="bet">bet</div>
-                            <div class="bet-num">70</div>
-                            <div class="big">Big</div>
-                            <div class="cirlce-left"></div>
                     </div>
                     <div class="center-box-center">
                         <div class="center-box-center-left">
@@ -117,7 +110,7 @@
     <audio id="audioId" loop="loop" preload="auto" autoplay="autoplay">
         <source src="music/tiger.mp3" type="audio/mp3">
     </audio>
-
+</div>
     <script src="js/less.js"></script>
     <script src="js/lib/jquery.js"></script>
     <script src="js/playmusic.js"></script>
