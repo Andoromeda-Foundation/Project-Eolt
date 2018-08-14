@@ -1,0 +1,270 @@
+body {
+    background: url(../images/bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main {
+    margin-top: 150px;
+}
+
+.logo-outer {
+    height: 80px;
+    text-align: center;
+}
+
+.logo-outer img {
+    height: 80px;
+}
+
+.container {
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 700px;
+}
+
+.button {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    transition: box-shadow 0.2s linear;
+}
+
+.button.red {
+    background: linear-gradient(#f7146f,#de254c);
+}
+
+.button.green {
+    background: linear-gradient(#1bc342,#1e8a13);
+}
+
+.button.blue {
+    background: linear-gradient(#1b76c3,#245ead);
+}
+
+.button.yellow {
+    background: linear-gradient(#bdc30f,#9e8522);
+}
+
+.button.gray {
+    background: linear-gradient(#8e8e8e,#595959);
+}
+
+.button-outer {
+    text-align: center;
+    width: 100px;
+    float: left;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.button-text {
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0,0,0.3);
+    width: 100%;
+    line-height: 40px;
+    height: 40px;
+    transition: text-shadow 0.2s linear;
+}
+
+.button-outer:hover .button {
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.button-outer:hover .button-text {
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.button i {
+    height: 100px;
+    line-height: 100px;
+    font-size: 48px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    color: #eee;
+}
+
+.table th {
+    font-weight: 500;
+}
+
+.table tr {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.table td, .table th {
+    padding: 10px 8px;
+}
+
+.clear {
+    clear: both;
+}
+
+.right {
+    float: right;
+}
+
+.nav-bar {
+    padding: 20px 0;
+    color: #fff;
+}
+
+.status.green {
+    color: #32d921;
+}
+
+.status.blue {
+    color: #35c6f0;
+}
+
+.status.red {
+    color: rgb(255,128,128);
+}
+
+a {
+    cursor: pointer;
+}
+
+pre {
+    height: 400px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.textbox {
+    display: block;
+    border: 2px solid rgba(255,255,255,0.8);
+    background: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 10px;
+    width: -webkit-fill-available;
+}
+
+.content {
+    color: #fff;
+}
+
+.form-label {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.form-input {
+    margin-bottom: 20px;
+}
+
+.upload-method {
+    color: rgba(255,255,255,0.7);
+    line-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+    .upload-method.active {
+        color: #21ab13;
+    }
+
+.select-file-button {
+    padding: 8px 10px;
+    border: 2px solid rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .select-file-button:hover {
+        background: rgba(255,255,255,0.7);
+        color: #333;
+    }
+
+.notification {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 380px;
+    background: rgb(57,57,57);
+    border-left: 5px solid #ccc;
+    z-index: 999999;
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    margin-right: -380px;
+    opacity: 0;
+    padding: 10px 15px;
+    transition: margin 0.2s linear, opacity 0.2s linear;
+}
+
+    .notification.active {
+        margin-right: 0;
+        opacity: 1;
+    }
+
+    .notification.succeeded {
+        color: #16b368;
+        border-left: 5px solid #16b368;
+    }
+
+    .notification.warning {
+        color: #f39800;
+        border-left: 5px solid #f39800;
+    }
+
+    .notification.error {
+        color: #fb6666;
+        border-left: 5px solid #fb6666;
+    }
+
+    .notification.important {
+        color: #ed5f82;
+        border-left: 5px solid #ed5f82;
+    }
+
+    .notification.pending {
+        color: #8fd6f8;
+        border-left: 5px solid #8fd6f8;
+    }
+
+.notification-detail {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.notification-button-outer {
+    margin-top: 10px;
+}
+
+.notification-button {
+    background-color: #555;
+    color: #bbb;
+    font-size: 12px;
+    padding: 5px 10px;
+    transition: all 0.2s linear;
+}
+
+    .notification-button:hover {
+        background-color: #ed5f82;
+        color: #fff;
+        text-decoration: none;
+    }
+
+.eos-status {
+    color: #fff;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: 2px solid #fff;
+    color: #fff;
+    background: none;
+}
+
+hr {
+    margin: 30px 0;
+}

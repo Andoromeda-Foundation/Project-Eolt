@@ -1,0 +1,22 @@
+﻿<div>
+    <div class="nav-bar">
+        <a v-on:click="$root.redirect('/')"><i class="fa fa-chevron-left"></i> 返回菜单</a>
+        <div class="clear"></div>
+    </div>
+    <div>
+        <div class="form-label">账户余额</div>
+        <table class="table">
+            <tr v-for="x in balances">
+                <td>{{ x }}</td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div>
+        <div class="form-label">收款账户</div>
+        <div class="form-label"><input class="textbox" v-model="to" /></div>
+        <div class="form-label">数量</div>
+        <div class="form-label"><input class="textbox" v-model="amount" /></div>
+        <input type="button" class="btn" v-on:click="transfer()" value="转账" />
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="stylesheet" href="/styles/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="/scripts/eos.js"></script>
+    <script src="/scripts/vue.js"></script>
+    <script src="/scripts/vue-router.js"></script>
+    <script src="/scripts/vue-lazy-routing.js"></script>
+    <script src="/scripts/dasdaq.routing.js"></script>
+    <script src="/scripts/dasdaq.queryview.js"></script>
+    <script src="/scripts/dasdaq.js"></script>
+    <title></title>
+    <script>
+        setTimeout(function () {
+            app.init_scatter();
+        }, 2000);
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="logo-outer"><img src="/images/dasdaq.svg" /></div>
+        <div class="container" id="app">
+            <router-view></router-view>
+            <!-- start notifications -->
+            <div class="notification" v-bind:class="{ 'active': control.currentNotification !== null, 'pending': control.currentNotification && control.currentNotification.level === 'pending', 'succeeded': control.currentNotification && control.currentNotification.level === 'succeeded', 'warning': control.currentNotification && control.currentNotification.level === 'warning', 'error': control.currentNotification && control.currentNotification.level === 'error', 'important': control.currentNotification && control.currentNotification.level === 'important' }">
+                <div class="notification-title">{{ control.currentNotification ? control.currentNotification.title : null }}</div>
+                <div class="notification-detail" v-if="control.currentNotification && control.currentNotification.detail">{{ control.currentNotification ? control.currentNotification.detail : null }}</div>
+                <div class="notification-button-outer" v-if="control.currentNotification && control.currentNotification.button">
+                    <a class="notification-button" v-on:click="clickNotification">{{ control.currentNotification.button }}</a>
+                </div>
+            </div>
+            <!-- end notifications -->
+        </div>
+    </div>
+</body>
+</html>

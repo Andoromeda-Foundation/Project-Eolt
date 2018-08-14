@@ -1,0 +1,26 @@
+﻿<div>
+    <div class="nav-bar">
+        <a v-on:click="$root.redirect('/')"><i class="fa fa-chevron-left"></i> 返回菜单</a>
+        <div class="clear"></div>
+    </div>
+    <div>
+        <div class="form-label">账户余额</div>
+        <table class="table">
+            <tr v-for="x in balances">
+                <td>{{ x }}</td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div>
+        <div class="form-label">买入ITE BYTES</div>
+        <div class="form-label"><input class="textbox" v-model="buy_amount" /></div>
+        <input type="button" class="btn" v-on:click="buy(buy_amount)" value="买入" />
+    </div>
+    <hr />
+    <div>
+        <div class="form-label">售出ITE BYTES</div>
+        <div class="form-input"><input class="textbox" v-model="sell_amount" /></div>
+        <input type="button" class="btn" v-on:click="sell(sell_amount)" value="售出" />
+    </div>
+</div>

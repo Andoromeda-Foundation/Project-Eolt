@@ -1,0 +1,70 @@
+.cube-box{
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    position: relative;
+    transform-style: preserve-3d;
+    /*设置动画 三者分别为：动画名 执行一次时间 执行方式*/
+    animation: rotateanimation 5s ease;
+    animation-iteration-count: infinite;/*令动画无限执行下去*/
+    animation-timing-function: linear;/*匀速*/
+    /*margin-top: 400px;*/
+    margin-left: 300px;
+    transform: rotatex(-40deg) rotatez(-30deg) rotatey(-50deg) translatez(-40px);
+    z-index: 12;
+}
+.cube-box>div{
+    position: absolute;
+}
+/*设置六面的视角*/
+.cube-box>.front{
+    width: 100px;
+    height: 100px;
+    transform: translateZ(50px);
+    background: linear-gradient(#ffe4e4,#ff3c3c);
+    border: 2px solid #000000;
+}
+.cube-box>.bottom{
+    width: 100px;
+    height: 100px;
+    transform: rotateX(270deg) translateZ(50px);
+    background:#ff3c3c;
+    border: 2px solid #000000;
+}
+.cube-box>.back{
+    width: 100px;
+    height: 100px;
+    transform: translateZ(-50px);
+    background:#ff3c3c;
+    border: 2px solid #000000;
+}
+.cube-box>.top{
+    width: 100px;
+    height: 100px;
+    transform: rotateX(90deg) translateZ(50px);
+    background: linear-gradient(#ff3c3c,#ffe4e4);
+    border: 2px solid #000000;
+}
+.cube-box>.left{
+    width: 100px;
+    height: 100px;
+    transform: rotateY(270deg) translateZ(50px);
+    background: #ff3c3c;
+    border: 2px solid #000000;
+}
+.cube-box>.right{
+    width: 100px;
+    height: 100px;
+    transform: rotateY(90deg) translateZ(50px);
+    background: #ff3c3c;
+    border: 2px solid #000000;
+}
+/*添加动画效果*/
+/*@keyframes rotateanimation{
+    0%{
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100%{
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+}*/
