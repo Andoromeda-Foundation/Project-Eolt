@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "http-server": "^0.11.1"
+  },
+  "dependencies": {
+    "eosjs": "^16.0.2"
   }
 }

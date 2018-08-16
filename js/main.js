@@ -95,7 +95,7 @@ app = new Vue({
                     return Promise.resolve(x.data);
                 });
         },
-        updateAuth: function () {            
+        updateAuth: function () {
             this.notification('pending', '正在对合约账户授权');
             return this.getPublicKey()
                 .then(key => {
@@ -145,17 +145,17 @@ app = new Vue({
                             this.notification('error', '充值成功', err.toString());
                         });
                 });*/
-                this.notification('pending', '正在充值(' + amount + ')EOS');
-                var requiredFields = this.requiredFields;
-                this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                    console.warn(amount);
-                    return contract.buy(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
-                })  .then(() => {
-                    this.notification('succeeded', '充值成功');
-                })
+            this.notification('pending', '正在充值(' + amount + ')EOS');
+            var requiredFields = this.requiredFields;
+            this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
+                console.warn(amount);
+                return contract.buy(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
+            }).then(() => {
+                this.notification('succeeded', '充值成功');
+            })
                 .catch((err) => {
                     this.notification('error', '充值成功', err.toString());
-                });              
+                });
         },
         withdraw: function (amount) {
             this.notification('pending', '正在兑换积分获得(' + amount + ')EOS');
@@ -175,11 +175,8 @@ app = new Vue({
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
-
                 var self = this;
-
-             //   alert('123');
-                self.chainId = 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f';
+                self.chainId = network.chainId;
                 self.network = {
                     blockchain: 'eos',
                     host: '127.0.0.1',
@@ -189,43 +186,15 @@ app = new Vue({
                     verbose: true,
                     debug: true
                 };
-    
-                scatter = window.scatter;
-                
-                window.scatter.getIdentity({ accounts: [self.network] }).then(identity => {
+                scatter.getIdentity({ accounts: [self.network] }).then(identity => {
                     self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-                    self.eos = window.scatter.eos(self.network, Eos, {});
+                    self.eos = scatter.eos(self.network, Eos, {});
                     self.requiredFields = { accounts: [self.network] };
-                });
-            }
-
-
-        /*
-            qv.network
-
-            qv.get('http://localhost:8888/api/chain/id')
-                .then(x => {
-                    alert('123');
-                    self.chainId = x.data;
-                    self.network = {
-                        blockchain: 'eos',
-                        host: '127.0.0.1',
-                        port: 8888,
-                        protocol: 'http',
-                        chainId: self.chainId,
-                        verbose: true,
-                        debug: true
-                    };
-                    alert('123');
-                    scatter.getIdentity({ accounts: [self.network] }).then(identity => {
-                        self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-                        self.eos = scatter.eos(self.network, Eos, {});
-                        self.requiredFields = { accounts: [self.network] };
-                    });
                 })
                 .catch(err => {
-                    this.notification('error', 'Scatter初始化失败', err.toString());
-                });*/
+                        this.notification('error', 'Scatter初始化失败', err.toString());
+                    });
+            }
         },
         roll: function () {
             var index = this.index;
@@ -271,7 +240,7 @@ app = new Vue({
                 this.timer = setTimeout(this.roll_loop, this.speed);//循环调用
             }
         },
-        stop_at: function(stop_position) {
+        stop_at: function (stop_position) {
             this.prize = stop_position
         },
     },
