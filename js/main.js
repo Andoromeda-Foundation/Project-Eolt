@@ -8,9 +8,7 @@ app = new Vue({
         },
         requiredFields: null,
         eos: null,
-        network: null,
         account: null,
-        chainId: null,
         user_eos_balance: null,
         user_score_balance: null,
         round_info: '准备',
@@ -89,72 +87,15 @@ app = new Vue({
                 }
             }, 250);
         },
-        getPublicKey: function () {
-            return qv.get(`http://localhost:8888/v1/chain/account/happyeosslot/perm/${this.account.authority}`, {})
-                .then(x => {
-                    return Promise.resolve(x.data);
-                });
-        },
-        updateAuth: function () {
-            this.notification('pending', '正在对合约账户授权');
-            return this.getPublicKey()
-                .then(key => {
-                    return this.eos.updateauth({
-                        account: this.account.name,
-                        permission: this.account.authority,
-                        parent: "owner",
-                        auth: {
-                            "threshold": 1,
-                            "keys": [{
-                                "key": key,
-                                "weight": 1
-                            }],
-                            "accounts": [{
-                                "permission": {
-                                    "actor": "happyeosslot",
-                                    "permission": "eosio.code"
-                                },
-                                "weight": 1
-                            }]
-                        }
-                    });
-                })
-                .then(() => {
-                    this.notification('succeeded', '对合约账户授权成功');
-                    return Promise.resolve(null);
-                })
-                .catch(err => {
-                    this.notification('error', '对合约账户授权失败', err.toString());
-                    return Promise.reject(err);
-                });
-        },
         deposit: function (amount) {
-            /*
-            this.updateAuth()
-                .then(() => {
-                    this.notification('pending', '正在充值(' + amount + ')EOS');
-                    var requiredFields = this.requiredFields;
-                    this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                        console.warn(amount);
-                        return contract.buy(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
-                    })
-                        .then(() => {
-                            this.notification('succeeded', '充值成功');
-                        })
-                        .catch((err) => {
-                            this.notification('error', '充值成功', err.toString());
-                        });
-                });*/
             this.notification('pending', '正在充值(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
-            this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.warn(amount);
-                return contract.buy(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
-            }).then(() => {
-                this.notification('succeeded', '充值成功');
-            })
+            this.eos.transfer(this.account.name, option.deposit_account, `${amount}.0000 EOS`, "")
+                .then(() => {
+                    this.notification('succeeded', '充值成功');
+                })
                 .catch((err) => {
-                    this.notification('error', '充值成功', err.toString());
+                    this.notification('error', '充值失败', err.toString());
                 });
         },
         withdraw: function (amount) {
@@ -176,22 +117,13 @@ app = new Vue({
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
                 var self = this;
-                self.chainId = network.chainId;
-                self.network = {
-                    blockchain: 'eos',
-                    host: '127.0.0.1',
-                    port: 8888,
-                    protocol: 'http',
-                    chainId: self.chainId,
-                    verbose: true,
-                    debug: true
-                };
-                scatter.getIdentity({ accounts: [self.network] }).then(identity => {
-                    self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-                    self.eos = scatter.eos(self.network, Eos, {});
-                    self.requiredFields = { accounts: [self.network] };
-                })
-                .catch(err => {
+                scatter.getIdentity({ accounts: [network] })
+                    .then(identity => {
+                        self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+                        self.eos = scatter.eos(network, Eos, {});
+                        self.requiredFields = { accounts: [network] };
+                    })
+                    .catch(err => {
                         this.notification('error', 'Scatter初始化失败', err.toString());
                     });
             }
