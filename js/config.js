@@ -54,21 +54,3 @@ if(ENV === 'dev'){
 } else {
     throw("network config error");
 }
-
-function setENV(env){
-    ENV = env;
-}
-
-export default {
-    appName: "eos dapp",
-    mainToken: "EOS", // 主网代币，永远是EOS, 不会变
-    tokenName: "CGT", // 游戏代币，游戏盘是 ITE， EOS盘是EOS
-    tokenContract: "eosio.token",
-    gameContract: "oneplayeriss",
-    
-    version: "1.0",
-    env: ENV,
-    eosNetwork: network,
-    eosOptions: options,
-    setNetwork: setENV
-};

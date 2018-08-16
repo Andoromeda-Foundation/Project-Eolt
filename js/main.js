@@ -87,6 +87,22 @@ app = new Vue({
                 }
             }, 250);
         },
+        balance: function (account) {
+            this.eos.getTableRows({
+                json: "true",
+                code: "slot",
+                scope: account,
+                table: 'player:',
+                limit: 10,
+                lower_bound: 0
+            }).then((data) => {
+                console.log(data);
+                this.userinfo = data.rows;
+            }).catch((e) => {
+                console.error(e);
+            })
+
+        },
         deposit: function (amount) {
             this.notification('pending', '正在充值(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
