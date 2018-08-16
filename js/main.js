@@ -106,7 +106,7 @@ app = new Vue({
         deposit: function (amount) {
             this.notification('pending', '正在充值(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
-            this.eos.transfer(this.account.name, option.deposit_account, `${amount}.0000 EOS`, "")
+            this.eos.transfer(this.account.name, options.deposit_account, `${amount}.0000 EOS`, "")
                 .then(() => {
                     this.notification('succeeded', '充值成功');
                 })
