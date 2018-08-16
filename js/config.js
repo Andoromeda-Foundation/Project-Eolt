@@ -1,5 +1,5 @@
 /* jshint esversion: 6 */ 
-var ENV = 'dev';
+var ENV = 'mainnet';
 var network;
 var options;
 

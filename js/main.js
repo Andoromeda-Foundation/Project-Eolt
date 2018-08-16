@@ -90,8 +90,8 @@ app = new Vue({
         balance: function (account_name) {
             this.eos.getTableRows({
                 json: "true",
-                code: "slot",
-                scope: "slot",
+                code: "happyeosslot",
+                scope: "happyeosslot",
                 table: 'player',
                 table_key: account_name,
                 limit: 10,
@@ -134,7 +134,7 @@ app = new Vue({
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
                 var self = this;
-                scatter.getIdentity({ accounts: [network] })
+                scatter.getIdentity({ accounts: [{chainId:network.chainId, blockchain:network.blockchain}] })
                     .then(identity => {
                         self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
                         self.eos = scatter.eos(network, Eos, {});
