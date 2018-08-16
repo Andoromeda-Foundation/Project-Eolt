@@ -87,12 +87,13 @@ app = new Vue({
                 }
             }, 250);
         },
-        balance: function (account) {
+        balance: function (account_name) {
             this.eos.getTableRows({
                 json: "true",
                 code: "slot",
-                scope: account,
-                table: 'player:',
+                scope: "slot",
+                table: 'player',
+                table_key: account_name,
                 limit: 10,
                 lower_bound: 0
             }).then((data) => {
