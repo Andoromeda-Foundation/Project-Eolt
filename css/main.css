@@ -145,14 +145,14 @@ body{
 	letter-spacing:0;
 	text-align:left;
 	font-weight: 800;
-	margin-top: 50px;
+	margin-top: 100px;
 	text-shadow: 5px 5px 5px #000000;
 }
 .big input{
 	width: 250px;
 	height: 50px;
 	line-height: 50px;
-	font-size: 50px;
+	font-size: 22px;
 	border-radius: 25px;
 	text-align: center;
 }
@@ -185,7 +185,7 @@ body{
 	letter-spacing:0;
 	text-align: center;
 	font-weight: 800;
-	margin-top: 282px;
+	margin-top: 332px;
 	text-shadow: 5px 5px 5px #000000;
 }
 
@@ -193,7 +193,7 @@ body{
 	width: 250px;
 	height: 50px;
 	line-height: 50px;
-	font-size: 50px;
+	font-size: 22px;
 	border-radius: 25px;
 	text-align: center;
 }
@@ -225,14 +225,14 @@ body{
 	letter-spacing:0;
 	text-align:right;
 	font-weight: 800;
-	margin-top: 50px;
+	margin-top: 100px;
 	text-shadow: 5px 5px 5px #000000;
 }
 .small input{
 	width: 250px;
 	height: 50px;
 	line-height: 50px;
-	font-size: 50px;
+	font-size: 22px;
 	border-radius: 25px;
 	text-align: center;
 }
@@ -241,7 +241,7 @@ body{
 	width: 250px;
 	height: 50px;
 	line-height: 50px;
-	font-size: 50px;
+	font-size: 22px;
 	border-radius: 25px;
 }
 .cirlce-right{
@@ -276,7 +276,7 @@ body{
 	position: absolute;
 	bottom: 70px;
 	left:400px;
-	font-size:48px;
+	font-size: 30px;
 	color:#000000;
 	letter-spacing:0;
 	text-align:center;
@@ -293,8 +293,8 @@ body{
 	height:67px;
 	position: absolute;
 	bottom: 70px;
-	left:700px;
-	font-size:48px;
+	left:600px;
+	font-size: 30px;
 	color:#000000;
 	letter-spacing:0;
 	text-align:center;
@@ -313,14 +313,49 @@ body{
 	position: absolute;
 	bottom: 70px;
 	left: 1000px;
-	font-size: 48px;
+	font-size: 30px;
 	color: #000000;
 	letter-spacing: 0;
 	text-align: center;
 	font-weight: 700;
     box-shadow: 10px 10px 2px #000;
 }
-.spin:hover,.gen:hover,.leave:hover{
+
+.input-money{
+	background-image:linear-gradient(-180deg, #ff5757 0%, #ea0000 100%);
+	border:6px solid #000000;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(255,255,255,0.50);
+	border-radius:8px;
+	width:177px;
+	height:67px;
+	position: absolute;
+	bottom: 70px;
+	left: 800px;
+	font-size: 30px;
+	color: #000000;
+	letter-spacing: 0;
+	text-align: center;
+	font-weight: 700;
+	box-shadow: 10px 10px 2px #000;
+}
+.get-money{
+	background-image:linear-gradient(-180deg, #ff5757 0%, #ea0000 100%);
+	border:6px solid #000000;
+	box-shadow:0 2px 4px 0 rgba(0,0,0,0.50), inset 0 1px 3px 0 rgba(255,255,255,0.50);
+	border-radius:8px;
+	width:177px;
+	height:67px;
+	position: absolute;
+	bottom: 70px;
+	left: 1000px;
+	font-size: 30px;
+	color: #000000;
+	letter-spacing: 0;
+	text-align: center;
+	font-weight: 700;
+	box-shadow: 10px 10px 2px #000;
+}
+.spin:hover,.gen:hover,.leave:hover,.input-money:hover,.get-money:hover{
 	color: #65cfff;
 	transform: scale(1.2)
 }
