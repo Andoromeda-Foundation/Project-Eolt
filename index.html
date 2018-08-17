@@ -58,7 +58,7 @@
                         </div>
                         <div class="center-box-center-right">
                             <div class="credits">credits</div>
-                            <div class="credits-num">80</div>
+                            <div class="credits-num">{{ user_credits }}</div>
                            <div class="small">
                                <span>提现金额</span>
                                <input/>
@@ -130,7 +130,12 @@
     <script src="js/playmusic.js"></script>
     <script src="js/lib/dasdaq.queryview.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/main.js" onload="app.init_scatter()"></script>
+    <script src="js/main.js"></script>
+    <script>
+        setTimeout(function () {
+            app.init_scatter(); // change to on load.
+        }, 2000);
+    </script>
     <script>
         $("#musicId").on("click", function () {
             swap_music("imgId");

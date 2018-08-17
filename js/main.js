@@ -12,6 +12,8 @@ app = new Vue({
         user_eos_balance: null,
         user_score_balance: null,
         round_info: '准备',
+        user_info: null,
+        user_credits: null,
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
@@ -97,8 +99,8 @@ app = new Vue({
                 limit: 10,
                 lower_bound: 0
             }).then((data) => {
-                console.log(data);
-                this.userinfo = data.rows;
+                this.user_info = data.rows[0];
+                this.user_credits = this.user_info.credits / 10000;
             }).catch((e) => {
                 console.error(e);
             })
@@ -106,7 +108,6 @@ app = new Vue({
         },
         deposit: function (amount) {
             this.notification('pending', '正在充值(' + amount + ')EOS');
-            var requiredFields = this.requiredFields;
             this.eos.transfer(this.account.name, options.deposit_account, `${amount}.0000 EOS`, "")
                 .then(() => {
                     this.notification('succeeded', '充值成功');
@@ -134,11 +135,12 @@ app = new Vue({
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
                 var self = this;
-                scatter.getIdentity({ accounts: [{chainId:network.chainId, blockchain:network.blockchain}] })
+                scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] })
                     .then(identity => {
                         self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
                         self.eos = scatter.eos(network, Eos, {});
                         self.requiredFields = { accounts: [network] };
+                        this.balance(self.account.name);
                     })
                     .catch(err => {
                         this.notification('error', 'Scatter初始化失败', err.toString());
@@ -155,9 +157,55 @@ app = new Vue({
             this.index = index;
             return false;
         },
-        start_roll: function () {
+        createHexRandom: function() {
+            var num = '';
+            for (i = 0; i < 64; i++) {
+                var tmp = Math.ceil(Math.random() * 15);
+                if (tmp > 9) {
+                    switch (tmp) {
+                        case (10):
+                            num += 'a';
+                            break;
+                        case (11):
+                            num += 'b';
+                            break;
+                        case (12):
+                            num += 'c';
+                            break;
+                        case (13):
+                            num += 'd';
+                            break;
+                        case (14):
+                            num += 'e';
+                            break;
+                        case (15):
+                            num += 'f';
+                            break;
+                    }
+                } else {
+                    num += tmp;
+                }
+            }
+            return num;
+        },
+        start_roll: function (amount) {
             if (this.running) return;
             this.running = true;
+            var requiredFields = this.requiredFields;
+            this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
+                console.log(contract);
+                alert(123);
+                contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
+                    { authorization: [`${this.account.name}@${this.account.authority}`] });
+            })
+                .then(() => {
+                    this.notification('succeeded', '摇奖成功');
+                    alert(234);
+                })
+                .catch((err) => {
+                    this.notification('error', '摇奖失败', err.toString());
+                    alert(err.toString());
+                });
             this.roll_loop();
         },
         roll_loop: function () {
