@@ -17,10 +17,12 @@ app = new Vue({
         bet_input: "100",
         deposit_input: null,
         withdraw_input: null,
+        old_bet_amount: null,
+        old_credits: null,
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
-        cycle: 3,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+        cycle: 20,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
         timer: 0,    //setTimeout的ID，用clearTimeout清除
         times: 0,
         prize: -1,    //中奖位置
@@ -109,18 +111,24 @@ app = new Vue({
                 }
             }, 250);
         },
-        balance: function (account_name) {
+        balance: function () {
             this.eos.getTableRows({
                 json: "true",
                 code: "happyeosslot",
                 scope: "happyeosslot",
-                table: 'player',
-                // table_key: account_name,
-                limit: 10,
-                lower_bound: 0
+                // table_key: this.account.name,
+                // limit: 10,
+                // lower_bound: 0,
+                table: 'player'
             }).then((data) => {
-                this.user_info = data.rows.find(acc => acc.account == account_name);
+                this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
+                if (this.running) {
+                    if (this.user_credits != this.old_credits) {
+                        (this.user_credits - this.old_credits) / this.old_bet_amount
+                        this.stop_at(5);
+                    }
+                }
             }).catch((e) => {
                 console.log(e);
             })
@@ -214,25 +222,28 @@ app = new Vue({
         },
         start_roll: function () {
             if (this.running) return;
-            this.running = true;
-            amount = this.bet_input;
+            var amount = this.bet_input;
             if (this.bet_input == "") {
                 amount = 1000;
             }
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.log(contract);
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
-                    { authorization: [`${this.account.name}@${this.account.authority}`] });
+                    { authorization: [`${this.account.name}@${this.account.authority}`] })
+                    .then(() => {
+                        this.running = true;
+                        this.old_credits = this.user_credits - amount;
+                        this.old_bet_amount = amount;
+                        this.roll_loop();
+                    }).catch((err) => {
+                        alert(err.toString());
+                    })
             })
                 .then(() => {
-                    this.notification('succeeded', '摇奖成功');
                 })
                 .catch((err) => {
-                    this.notification('error', '摇奖失败', err.toString());
                     alert(err.toString());
                 });
-            this.roll_loop();
         },
         roll_loop: function () {
             this.times += 1;
@@ -252,6 +263,8 @@ app = new Vue({
                         } else {
                             this.speed += 20;
                         }
+                    } else {
+                        this.balance();
                     }
                 }
                 if (this.speed < 40) {
