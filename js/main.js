@@ -166,7 +166,7 @@ app = new Vue({
 =======
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
-                        (this.user_credits - this.old_credits) / this.old_bet_amount
+                        var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
                         this.stop_at(5);
 >>>>>>> fix
                     }
