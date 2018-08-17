@@ -123,25 +123,26 @@ app = new Vue({
             }).then((data) => {
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
+				
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
                         if (last_rate >= 100) {
-                            this.stop_at(24);
+                            this.stop_at(25);
                         } else if (last_rate >= 50) {
-                            this.stop_at(7);
+                            this.stop_at(24);
                         } else if (last_rate >= 20) {
-                            this.stop_at(2);
+                            this.stop_at(6);
                         } else if (last_rate >= 10) {
                             this.stop_at(1);
                         } else if (last_rate >= 5) {
-                            this.stop_at(5);
+                            this.stop_at(13);
                         } else if (last_rate >= 2) {
-                            this.stop_at(6);
+                            this.stop_at(28);
                         } else if (last_rate >= 0.1) {
-                            this.stop_at(4);
+                            this.stop_at(19);
                         } else {
-                            this.stop_at(8);
+                            this.stop_at(20);
                         }                    
                     }
                 }
