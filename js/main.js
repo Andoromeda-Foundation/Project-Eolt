@@ -124,25 +124,35 @@ app = new Vue({
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
 				
+				var rate_100 = 25;
+				var rate_50 = new Array(11, 24);
+				var rate_20 = new Array(6, 16, 21);
+				var rate_10 = new Array(1, 10, 26);
+				var rate_5 = new Array(3, 13, 18, 21);
+				var rate_2 = new Array(2, 8, 17, 28);
+				var rate_0_1 = new Array(5, 9, 12, 14, 19);
+				var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
+				
+				
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
                         if (last_rate >= 100) {
-                            this.stop_at(25);
+                            this.stop_at(rate_100);
                         } else if (last_rate >= 50) {
-                            this.stop_at(24);
+                            this.stop_at(rate_50[Math.random()%2]);
                         } else if (last_rate >= 20) {
-                            this.stop_at(6);
+                            this.stop_at(rate_20[Math.random()%3]);
                         } else if (last_rate >= 10) {
-                            this.stop_at(1);
+                            this.stop_at(rate_10[Math.random()%3]);
                         } else if (last_rate >= 5) {
-                            this.stop_at(13);
+                            this.stop_at(rate_5[Math.random()%4]);
                         } else if (last_rate >= 2) {
-                            this.stop_at(28);
+                            this.stop_at(rate_2[Math.random()%4]);
                         } else if (last_rate >= 0.1) {
-                            this.stop_at(19);
-                        } else {
-                            this.stop_at(20);
+                            this.stop_at(rate_0_1[Math.random()%5]);
+                        } else if (last_rate >= 0.01){
+                            this.stop_at(rate_0_0_1[Math.random()%6]);
                         }                    
                     }
                 }
