@@ -14,7 +14,7 @@ app = new Vue({
         round_info: '准备',
         user_info: null,
         user_credits: null,
-        bet_input: null,
+        bet_input: "100",
         deposit_input: null,
         withdraw_input: null,
         index: 0,    //当前转动到哪个位置，起点位置
@@ -45,12 +45,27 @@ app = new Vue({
             }
             return baseUrl += args.join('&');
         },
+        change_bet: function () {
+            var new_bet = parseInt(prompt("赌多少？"));
+            // Check new bet
+            if (new_bet > 0) {
+                this.bet_input = new_bet;
+            }
+        },
         make_deposit: function (event) {
-            this.deposit(this.deposit_input);
-        },      
+            var new_deposit = prompt("充值多少EOS？");
+            // Check new deposit
+            if (new_deposit > 0) {
+                this.deposit(new_deposit);
+            }
+        },
         make_withdraw: function (event) {
-            //withdraw(this.withdraw_input);
-        },      
+            var new_withdraw = prompt("提现多少EOS？");
+            // Check new withdraw
+            if (new_withdraw > 0) {
+                this.withdraw(new_withdraw);
+            }
+        },
         redirect: function (name, path, params, query) {
             if (name && !path)
                 path = name;
@@ -100,11 +115,11 @@ app = new Vue({
                 code: "happyeosslot",
                 scope: "happyeosslot",
                 table: 'player',
-                table_key: account_name,
+                // table_key: account_name,
                 limit: 10,
                 lower_bound: 0
             }).then((data) => {
-                this.user_info = data.rows[0];
+                this.user_info = data.rows.find(acc => acc.account == account_name);
                 this.user_credits = this.user_info.credits / 10000;
             }).catch((e) => {
                 console.log(e);
@@ -124,11 +139,11 @@ app = new Vue({
                 });
         },
         withdraw: function (amount) {
+            amount = parseInt(amount * 1000 * 10000);
             this.notification('pending', '正在兑换积分获得(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.log(contract);
-                return contract.sell(this.account.name, parseInt(amount), { authorization: [`${this.account.name}@${this.account.authority}`] });
+                contract.sell(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
             })
                 .then(() => {
                     this.notification('succeeded', '兑换成功');
@@ -137,17 +152,19 @@ app = new Vue({
                     this.notification('error', '兑换失败', err.toString());
                 });
         },
+        setIdentity: function (identity) {
+            this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+            this.eos = scatter.eos(network, Eos, {});
+            this.requiredFields = { accounts: [network] };
+            this.balance(this.account.name);
+        },
         init_scatter: function () {
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
-                var self = this;
                 scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] })
                     .then(identity => {
-                        self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-                        self.eos = scatter.eos(network, Eos, {});
-                        self.requiredFields = { accounts: [network] };
-                        this.balance(self.account.name);
+                        this.setIdentity(identity);
                     })
                     .catch(err => {
                         this.notification('error', 'Scatter初始化失败', err.toString());
@@ -164,7 +181,7 @@ app = new Vue({
             this.index = index;
             return false;
         },
-        createHexRandom: function() {
+        createHexRandom: function () {
             var num = '';
             for (i = 0; i < 64; i++) {
                 var tmp = Math.ceil(Math.random() * 15);
@@ -205,13 +222,11 @@ app = new Vue({
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
                 console.log(contract);
-                alert(123);
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] });
             })
                 .then(() => {
                     this.notification('succeeded', '摇奖成功');
-                    alert(234);
                 })
                 .catch((err) => {
                     this.notification('error', '摇奖失败', err.toString());
@@ -255,3 +270,14 @@ app = new Vue({
     computed: {
     }
 });
+
+async function requestId() {
+    if (!('scatter' in window)) {
+        alert("你需要Scatter来玩这个游戏");
+    } else {
+        const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+        scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.setIdentity(identity);
+    }
+};

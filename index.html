@@ -42,34 +42,29 @@
                     </div>
                     <div class="center-box-center">
                         <div class="center-box-center-left">
-                            <div class="bet">bet</div>
-                            <div class="bet-num">70</div>
-                             <div class="big">
-                              <!--   <span STYLE="text-align: center">Bet</span>-->
-                                 <input v-model="bet_input" type="number" id="bet_input" placeholder="Bet credits">
-                             </div>
+                            <div class="bet" onclick="app.change_bet()">Bet</div>
+                            <div class="bet-num" onclick="app.change_bet()">{{ bet_input||0 }}</div>
                             <!-- <div class="cirlce-left"></div> -->
                         </div>
                         <div class="center-box-center-center">
-                            <div class="center-num">
-                              <!--  <span>充值金额</span>-->
-                                <input v-model="deposit_input" type="number" id="deposit_input" placeholder="Deposit EOS number">
-
-                            </div>
+                            <div class="center-num"></div>
                         </div>
                         <div class="center-box-center-right">
                             <div class="credits">credits</div>
                             <div class="credits-num">{{ user_credits||0 }}</div>
+<<<<<<< HEAD
                            <div class="small">
                              <!--  <span>提现金额</span>-->
                                <input v-model="withdraw_input" type="number" id="withdraw_input" placeholder="Withdraw EOS number">
 
                            </div>
                             <!--  <div class="cirlce-right"></div> -->
+=======
+                            <div class="small"> </div>
+>>>>>>> fix bugs
                         </div>
                     </div>
                     <div class="center-box-bottom">
-
                         <div class="img-box img-box7" v-bind:class="{selected: index == 7}"></div>
                         <div class="img-box img-box8" v-bind:class="{selected: index == 8}"></div>
                         <div class="img-box img-box9" v-bind:class="{selected: index == 9}"></div>
@@ -78,12 +73,10 @@
                         <div class="img-box img-box12" v-bind:class="{selected: index == 12}"></div>
                         <div class="img-box img-box13" v-bind:class="{selected: index == 13}"></div>
                         <div class="img-box img-box14" v-bind:class="{selected: index == 14}"></div>
-
                     </div>
                 </div>
             </div>
             <div class="box3-right">
-
                 <div class="img-box img-box20" v-bind:class="{selected: index == 20}"></div>
                 <div class="img-box img-box19" v-bind:class="{selected: index == 19}"></div>
                 <div class="img-box img-box18" v-bind:class="{selected: index == 18}"></div>
@@ -113,22 +106,21 @@
                 <div class="left"></div>
                 <div class="right"></div>
             </div>
-            <button id="spinId" class="spin" onclick="app.start_roll()"> Spin</button>
-            <button class="input-money"  v-on:click="make_deposit">Recharge</button>
-            <button class="get-money" v-on:click="make_withdraw">withdraw</button>
-            <button class="gen" onclick="app.stop_at(15)"> Gen</button>
-         <!--   <button class="leave"> Leave</button>-->
+            <button id="spinId" class="spin" v-on:click="start_roll"> Spin</button>
+            <button class="input-money" v-on:click="make_deposit">Recharge</button>
+            <button class="get-money" v-on:click="make_withdraw">Withdraw</button>
+            <!-- <button class="gen" onclick="app.stop_at(15)">Gen</button> -->
+            <!--   <button class="leave"> Leave</button>-->
             <div class="music-play" id="musicId">
                 <img id="imgId" src="imges/pause.jpg">
             </div>
         </div>
-
     </div>
 
     <audio id="audioId" loop="loop" preload="auto" autoplay="autoplay">
         <source src="music/tiger.mp3" type="audio/mp3">
     </audio>
-</div>
+    </div>
     <script src="js/less.js"></script>
     <script src="js/lib/jquery.js"></script>
     <script src="js/playmusic.js"></script>
@@ -137,8 +129,8 @@
     <script src="js/main.js"></script>
     <script>
         setTimeout(function () {
-            app.init_scatter(); // change to on load.
-        }, 3000);
+            requestId(); // change to on load.
+        }, 1000);
     </script>
     <script>
         $("#musicId").on("click", function () {
