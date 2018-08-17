@@ -14,7 +14,7 @@
 
 <body>
     <div class="app" id="app">
-        <div class="main" id="lottery">
+        <div class="main">
             <div class="adorn-top"></div>
             <div class="adorn-bottom"></div>
             <div class="box1-left">
@@ -46,14 +46,15 @@
                             <div class="bet-num">70</div>
                              <div class="big">
                                  <span STYLE="text-align: center">Bet</span>
-                                 <input/>
+                                 <input v-model="bet_input" id="bet_input" placeholder="Bet credits">
                              </div>
                             <!-- <div class="cirlce-left"></div> -->
                         </div>
                         <div class="center-box-center-center">
                             <div class="center-num">
                                 <span>充值金额</span>
-                                <input/>
+                                <input v-model="deposit_input" id="deposit_input" placeholder="Deposit EOS number">
+                                <button v-on:click="make_deposit"> 充值 </button>        
                             </div>
                         </div>
                         <div class="center-box-center-right">
@@ -61,7 +62,8 @@
                             <div class="credits-num">{{ user_credits }}</div>
                            <div class="small">
                                <span>提现金额</span>
-                               <input/>
+                               <input v-model="withdraw_input" id="withdraw_input" placeholder="Withdraw EOS number">
+                               <button v-on:click="make_withdraw"> 提现 </button>    
                            </div>
                             <!--  <div class="cirlce-right"></div> -->
                         </div>
@@ -134,7 +136,7 @@
     <script>
         setTimeout(function () {
             app.init_scatter(); // change to on load.
-        }, 2000);
+        }, 3000);
     </script>
     <script>
         $("#musicId").on("click", function () {

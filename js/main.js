@@ -14,6 +14,9 @@ app = new Vue({
         round_info: '准备',
         user_info: null,
         user_credits: null,
+        bet_input: null,
+        deposit_input: null,
+        withdraw_input: null,
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
@@ -42,6 +45,12 @@ app = new Vue({
             }
             return baseUrl += args.join('&');
         },
+        make_deposit: function (event) {
+            this.deposit(this.deposit_input);
+        },      
+        make_withdraw: function (event) {
+            //withdraw(this.withdraw_input);
+        },      
         redirect: function (name, path, params, query) {
             if (name && !path)
                 path = name;
@@ -60,10 +69,6 @@ app = new Vue({
         },
         clickNotification: function () {
             this._releaseNotification();
-        },
-        refreshBalance: function () {
-            this.user_eos_balance = "12345";
-            this.user_score_balance = "54321";
         },
         _showNotification: function (manualRelease) {
             var self = this;
@@ -102,13 +107,15 @@ app = new Vue({
                 this.user_info = data.rows[0];
                 this.user_credits = this.user_info.credits / 10000;
             }).catch((e) => {
-                console.error(e);
+                console.log(e);
             })
 
         },
         deposit: function (amount) {
+            amount = new Number(amount).toFixed(4);
             this.notification('pending', '正在充值(' + amount + ')EOS');
-            this.eos.transfer(this.account.name, options.deposit_account, `${amount}.0000 EOS`, "")
+            console.log(amount);
+            this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "")
                 .then(() => {
                     this.notification('succeeded', '充值成功');
                 })
@@ -188,9 +195,13 @@ app = new Vue({
             }
             return num;
         },
-        start_roll: function (amount) {
+        start_roll: function () {
             if (this.running) return;
             this.running = true;
+            amount = this.bet_input;
+            if (this.bet_input == "") {
+                amount = 1000;
+            }
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
                 console.log(contract);
