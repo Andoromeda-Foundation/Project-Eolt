@@ -19,7 +19,10 @@ app = new Vue({
         withdraw_input: null,
         old_bet_amount: null,
         old_credits: null,
+<<<<<<< HEAD
         stoping: false,
+=======
+>>>>>>> fix
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
@@ -118,12 +121,17 @@ app = new Vue({
                 code: "happyeosslot",
                 scope: "happyeosslot",
                 // table_key: this.account.name,
+<<<<<<< HEAD
                 limit: 1000,
+=======
+                // limit: 10,
+>>>>>>> fix
                 // lower_bound: 0,
                 table: 'player'
             }).then((data) => {
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
+<<<<<<< HEAD
 
                 var rate_100 = 25;
                 var rate_50 = new Array(11, 24);
@@ -155,6 +163,12 @@ app = new Vue({
                         } else if (last_rate >= 0.005) {
                             this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
                         }
+=======
+                if (this.running) {
+                    if (this.user_credits != this.old_credits) {
+                        (this.user_credits - this.old_credits) / this.old_bet_amount
+                        this.stop_at(5);
+>>>>>>> fix
                     }
                 }
             }).catch((e) => {
@@ -256,7 +270,6 @@ app = new Vue({
             }
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.log(contract);
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] })
                     .then(() => {
@@ -269,7 +282,6 @@ app = new Vue({
                     })
             })
                 .then(() => {
-                    this.notification('succeeded', '摇奖成功');
                 })
                 .catch((err) => {
                     alert(err.toString());
