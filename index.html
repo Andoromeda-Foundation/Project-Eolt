@@ -66,13 +66,6 @@
                         <div class="center-box-center-right">
                             <div class="credits">credits</div>
                             <div class="credits-num">{{ user_credits||0 }}</div>
-
-                      <!--     <div class="small">
-                             &lt;!&ndash;  <span>提现金额</span>&ndash;&gt;
-                               <input v-model="withdraw_input" type="number" id="withdraw_input" placeholder="Withdraw EOS number">
-
-                           </div>-->
-                            <!--  <div class="cirlce-right"></div> -->
                             <div class="small"> </div>
                         </div>
                     </div>
@@ -118,9 +111,9 @@
                 <div class="left"></div>
                 <div class="right"></div>
             </div>
-            <button id="spinId" class="spin" v-on:click="start_roll">摇起来！</button>
-            <button class="input-money" v-on:click="make_deposit">充值</button>
-            <button class="get-money" v-on:click="make_withdraw">提取</button>
+            <button id="spinId" class="spin" v-on:click="start_roll">Spin</button>
+            <button class="input-money" v-on:click="make_deposit">Recharge</button>
+            <button class="get-money" v-on:click="make_withdraw">Withdraw</button>
             <!-- <button class="gen" onclick="app.stop_at(15)">Gen</button> -->
             <!--   <button class="leave"> Leave</button>-->
             <div class="music-play" id="musicId">

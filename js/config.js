@@ -54,14 +54,3 @@ if(ENV === 'dev'){
 } else {
     throw("network config error");
 }
-
-async function requestId() {
-    if (!('scatter' in window)) {
-        alert("你需要Scatter来玩这个游戏");
-    } else {
-        const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
-        app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-        scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
-        app.setIdentity(identity);
-    }
-};

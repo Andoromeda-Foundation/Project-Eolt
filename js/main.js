@@ -118,7 +118,7 @@ app = new Vue({
                 code: "happyeosslot",
                 scope: "happyeosslot",
                 // table_key: this.account.name,
-                // limit: 10,
+                limit: 1000,
                 // lower_bound: 0,
                 table: 'player'
             }).then((data) => {
@@ -256,6 +256,7 @@ app = new Vue({
             }
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
+                console.log(contract);
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] })
                     .then(() => {
@@ -268,6 +269,7 @@ app = new Vue({
                     })
             })
                 .then(() => {
+                    this.notification('succeeded', '摇奖成功');
                 })
                 .catch((err) => {
                     alert(err.toString());
@@ -318,3 +320,13 @@ app = new Vue({
     }
 });
 
+async function requestId() {
+    if (!('scatter' in window)) {
+        alert("你需要Scatter来玩这个游戏");
+    } else {
+        const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+        scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.setIdentity(identity);
+    }
+};
