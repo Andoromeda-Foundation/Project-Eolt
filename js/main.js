@@ -328,4 +328,3 @@ async function requestId() {
         app.setIdentity(identity);
     }
 };
-
