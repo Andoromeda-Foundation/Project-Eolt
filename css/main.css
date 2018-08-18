@@ -216,7 +216,7 @@ body{
 	margin-top: 20px;
 	box-shadow: 0 5px 0 #23a4ff;
 	width: 100px;
-	margin-left: 120px;
+	margin-left: 10px;
 }
 .small{
 	height:60px;
@@ -262,7 +262,7 @@ body{
 	width: 1200px;
 	margin-top: 350px;
 	position: absolute;
-	background: url("../imges/Triangle1x.png");
+	/*background: url("../imges/Triangle1x.png");*/
 }
 
 .spin{
@@ -330,7 +330,7 @@ body{
 	height:67px;
 	position: absolute;
 	bottom: 70px;
-	left: 800px;
+	left: 650px;
 	font-size: 30px;
 	color: #000000;
 	letter-spacing: 0;
@@ -347,7 +347,7 @@ body{
 	height:67px;
 	position: absolute;
 	bottom: 70px;
-	left: 1000px;
+	left: 900px;
 	font-size: 30px;
 	color: #000000;
 	letter-spacing: 0;

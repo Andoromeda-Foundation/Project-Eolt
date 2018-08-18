@@ -14,13 +14,15 @@ app = new Vue({
         round_info: '准备',
         user_info: null,
         user_credits: null,
-        bet_input: null,
+        bet_input: "100",
         deposit_input: null,
         withdraw_input: null,
+        old_bet_amount: null,
+        old_credits: null,
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
-        cycle: 3,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+        cycle: 20,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
         timer: 0,    //setTimeout的ID，用clearTimeout清除
         times: 0,
         prize: -1,    //中奖位置
@@ -45,12 +47,27 @@ app = new Vue({
             }
             return baseUrl += args.join('&');
         },
+        change_bet: function () {
+            var new_bet = parseInt(prompt("赌多少？"));
+            // Check new bet
+            if (new_bet > 0) {
+                this.bet_input = new_bet;
+            }
+        },
         make_deposit: function (event) {
-            this.deposit(this.deposit_input);
-        },      
+            var new_deposit = prompt("充值多少EOS？");
+            // Check new deposit
+            if (new_deposit > 0) {
+                this.deposit(new_deposit);
+            }
+        },
         make_withdraw: function (event) {
-            //withdraw(this.withdraw_input);
-        },      
+            var new_withdraw = prompt("提现多少EOS？");
+            // Check new withdraw
+            if (new_withdraw > 0) {
+                this.withdraw(new_withdraw);
+            }
+        },
         redirect: function (name, path, params, query) {
             if (name && !path)
                 path = name;
@@ -94,18 +111,51 @@ app = new Vue({
                 }
             }, 250);
         },
-        balance: function (account_name) {
+        balance: function () {
             this.eos.getTableRows({
                 json: "true",
                 code: "happyeosslot",
                 scope: "happyeosslot",
-                table: 'player',
-                table_key: account_name,
-                limit: 10,
-                lower_bound: 0
+                // table_key: this.account.name,
+                // limit: 10,
+                // lower_bound: 0,
+                table: 'player'
             }).then((data) => {
-                this.user_info = data.rows[0];
+                this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
+				
+				var rate_100 = 25;
+				var rate_50 = new Array(11, 24);
+				var rate_20 = new Array(6, 16, 21);
+				var rate_10 = new Array(1, 10, 26);
+				var rate_5 = new Array(3, 13, 18, 21);
+				var rate_2 = new Array(2, 8, 17, 28);
+				var rate_0_1 = new Array(5, 9, 12, 14, 19);
+				var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
+				
+				
+                if (this.running) {
+                    if (this.user_credits != this.old_credits) {
+                        var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
+                        if (last_rate >= 80) {
+                            this.stop_at(rate_100);
+                        } else if (last_rate >= 40) {
+                            this.stop_at(rate_50[Math.ceil(Math.random() * 2)]);
+                        } else if (last_rate >= 15) {
+                            this.stop_at(rate_20[Math.ceil(Math.random() * 3)]);
+                        } else if (last_rate >= 8) {
+                            this.stop_at(rate_10[Math.ceil(Math.random() * 3)]);
+                        } else if (last_rate >= 3) {
+                            this.stop_at(rate_5[Math.ceil(Math.random() * 4)]);
+                        } else if (last_rate >= 1) {
+                            this.stop_at(rate_2[Math.ceil(Math.random() * 4)]);
+                        } else if (last_rate >= 0.05) {
+                            this.stop_at(rate_0_1[Math.ceil(Math.random() * 5)]);
+                        } else {
+                            this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
+                        }                    
+                    }
+                }
             }).catch((e) => {
                 console.log(e);
             })
@@ -124,11 +174,11 @@ app = new Vue({
                 });
         },
         withdraw: function (amount) {
+            amount = parseInt(amount * 1000 * 10000);
             this.notification('pending', '正在兑换积分获得(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.log(contract);
-                return contract.sell(this.account.name, parseInt(amount), { authorization: [`${this.account.name}@${this.account.authority}`] });
+                contract.sell(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
             })
                 .then(() => {
                     this.notification('succeeded', '兑换成功');
@@ -137,17 +187,19 @@ app = new Vue({
                     this.notification('error', '兑换失败', err.toString());
                 });
         },
+        setIdentity: function (identity) {
+            this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+            this.eos = scatter.eos(network, Eos, {});
+            this.requiredFields = { accounts: [network] };
+            this.balance(this.account.name);
+        },
         init_scatter: function () {
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
-                var self = this;
                 scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] })
                     .then(identity => {
-                        self.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-                        self.eos = scatter.eos(network, Eos, {});
-                        self.requiredFields = { accounts: [network] };
-                        this.balance(self.account.name);
+                        this.setIdentity(identity);
                     })
                     .catch(err => {
                         this.notification('error', 'Scatter初始化失败', err.toString());
@@ -164,7 +216,7 @@ app = new Vue({
             this.index = index;
             return false;
         },
-        createHexRandom: function() {
+        createHexRandom: function () {
             var num = '';
             for (i = 0; i < 64; i++) {
                 var tmp = Math.ceil(Math.random() * 15);
@@ -197,27 +249,28 @@ app = new Vue({
         },
         start_roll: function () {
             if (this.running) return;
-            this.running = true;
-            amount = this.bet_input;
+            var amount = this.bet_input;
             if (this.bet_input == "") {
                 amount = 1000;
             }
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
-                console.log(contract);
-                alert(123);
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
-                    { authorization: [`${this.account.name}@${this.account.authority}`] });
+                    { authorization: [`${this.account.name}@${this.account.authority}`] })
+                    .then(() => {
+                        this.running = true;
+                        this.old_credits = this.user_credits - amount;
+                        this.old_bet_amount = amount;
+                        this.roll_loop();
+                    }).catch((err) => {
+                        alert(err.toString());
+                    })
             })
                 .then(() => {
-                    this.notification('succeeded', '摇奖成功');
-                    alert(234);
                 })
                 .catch((err) => {
-                    this.notification('error', '摇奖失败', err.toString());
                     alert(err.toString());
                 });
-            this.roll_loop();
         },
         roll_loop: function () {
             this.times += 1;
@@ -237,6 +290,8 @@ app = new Vue({
                         } else {
                             this.speed += 20;
                         }
+                    } else {
+                        this.balance();
                     }
                 }
                 if (this.speed < 40) {
@@ -255,3 +310,4 @@ app = new Vue({
     computed: {
     }
 });
+
