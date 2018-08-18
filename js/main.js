@@ -151,7 +151,7 @@ app = new Vue({
                             this.stop_at(rate_2[Math.ceil(Math.random() * 4)]);
                         } else if (last_rate >= 0.05) {
                             this.stop_at(rate_0_1[Math.ceil(Math.random() * 5)]);
-                        } else {
+                        } else if (last_rate >= 0.005) {
                             this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
                         }                    
                     }
