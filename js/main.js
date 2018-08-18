@@ -155,7 +155,7 @@ app = new Vue({
                             this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
                         }                    
                     }
-                }
+               }
             }).catch((e) => {
                 console.log(e);
             })
