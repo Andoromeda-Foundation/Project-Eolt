@@ -160,7 +160,6 @@ app = new Vue({
             }).catch((e) => {
                 console.log(e);
             })
-
         },
         deposit: function (amount) {
             amount = new Number(amount).toFixed(4);
