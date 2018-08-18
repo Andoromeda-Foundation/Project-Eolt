@@ -8,6 +8,7 @@
 indexv1.0.html
 css/mainv1.0.css
 
+.DS_Store
 .idea
 npm-debug.log*
 yarn-debug.log*
