@@ -138,8 +138,19 @@ body{
 	width: 100px;
 	margin-left: 130px;
 }
-.bet-num:hover{
-	content: "alert('点击修改Bet')";
+.bet-num .tooltiptext{
+	visibility: hidden;
+	font-size: 20px;
+	position: absolute;
+	text-align: center;
+	border-radius: 10px;
+	width: 200px;
+	background: #ffffff;
+	margin-left: -60px;
+}
+.bet-num:hover .tooltiptext{
+	visibility: visible;
+	color: #00b6ff;
 }
 .big{
 	height:60px;
