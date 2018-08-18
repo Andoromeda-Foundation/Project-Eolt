@@ -101,18 +101,18 @@ body{
   }
 
 .center-box-center-left{
-	width: 35%;
+	width: 45%;
 	height: 440px;
 	z-index:12;
 	float: left;
 }
 .center-box-center-center{
-	width: 30%;
+	/*width: 30%;*/
 	height: 440px;
 	z-index:12;
 }
 .center-box-center-right{
-	width:35%;
+	width:50%;
 	height: 440px;
 	z-index:12;
 }
@@ -128,15 +128,18 @@ body{
 	text-shadow: 5px 5px 5px #000000;
 }
 .bet-num{
-	font-size:100px;
+	font-size:80px;
 	color:#ffffff;
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 900;
-	margin-top: 20px;
+	margin-top: 50px;
 	box-shadow: 0 5px 0 #23a4ff;
 	width: 100px;
-	margin-left: 120px;
+	margin-left: 130px;
+}
+.bet-num:hover{
+	content: "alert('点击修改Bet')";
 }
 .big{
 	height:60px;
@@ -208,15 +211,15 @@ body{
 	text-shadow: 5px 5px 5px #000000;
 }
 .credits-num{
-	font-size:100px;
-	color:#ffffff;
-	letter-spacing:0;
-	text-align:center;
+	font-size: 80px;
+	color: #ffffff;
+	letter-spacing: 0;
+	text-align: center;
 	font-weight: 900;
-	margin-top: 20px;
+	margin-top: 50px;
 	box-shadow: 0 5px 0 #23a4ff;
 	width: 100px;
-	margin-left: 10px;
+	margin-left: 40%;
 }
 .small{
 	height:60px;
