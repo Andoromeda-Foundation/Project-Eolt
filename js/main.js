@@ -19,6 +19,7 @@ app = new Vue({
         withdraw_input: null,
         old_bet_amount: null,
         old_credits: null,
+        stoping: false,
         index: 0,    //当前转动到哪个位置，起点位置
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
@@ -123,17 +124,17 @@ app = new Vue({
             }).then((data) => {
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
                 this.user_credits = this.user_info.credits / 10000;
-				
-				var rate_100 = 25;
-				var rate_50 = new Array(11, 24);
-				var rate_20 = new Array(6, 16, 21);
-				var rate_10 = new Array(1, 10, 26);
-				var rate_5 = new Array(3, 13, 18, 21);
-				var rate_2 = new Array(2, 8, 17, 28);
-				var rate_0_1 = new Array(5, 9, 12, 14, 19);
-				var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
-				
-				
+
+                var rate_100 = 25;
+                var rate_50 = new Array(11, 24);
+                var rate_20 = new Array(6, 16, 21);
+                var rate_10 = new Array(1, 10, 26);
+                var rate_5 = new Array(3, 13, 18, 21);
+                var rate_2 = new Array(2, 8, 17, 28);
+                var rate_0_1 = new Array(5, 9, 12, 14, 19);
+                var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
+
+
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
@@ -153,9 +154,9 @@ app = new Vue({
                             this.stop_at(rate_0_1[Math.ceil(Math.random() * 5)]);
                         } else if (last_rate >= 0.005) {
                             this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
-                        }                    
+                        }
                     }
-               }
+                }
             }).catch((e) => {
                 console.log(e);
             })
@@ -282,7 +283,11 @@ app = new Vue({
                 this.running = false;
             } else {
                 if (this.times < this.cycle) {
-                    this.speed -= 10;
+                    if (this.speed > 200) {
+                        this.speed -= 100;
+                    } else {
+                        this.speed -= 10;
+                    }
                 } else {
                     if (this.prize != -1) {
                         if (this.times > this.cycle + 10 && ((this.prize == 1 && this.index == this.count) || this.prize == this.index + 1)) {
@@ -304,7 +309,9 @@ app = new Vue({
             }
         },
         stop_at: function (stop_position) {
-            this.prize = stop_position
+            if (this.prize == -1) {
+                this.prize = stop_position
+            }
         },
     },
     computed: {
