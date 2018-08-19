@@ -68,6 +68,7 @@ app = new Vue({
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
+                    alert(this.tpConnected)
                     if(this.tpConnected){
                         this.tpDeposit(new_deposit);
                     }else {
