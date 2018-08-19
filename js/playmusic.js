@@ -4,8 +4,8 @@
 
 
 function swap_music(id) {
-    var oAudio= document.getElementById("audioId");
-    var playEvent=document.getElementById(id);
+    var oAudio = document.getElementById("audioId");
+    var playEvent = document.getElementById(id);
     if(oAudio.paused){
         oAudio.play();
         $("#"+id).attr('src',"imges/pause.jpg");
@@ -13,4 +13,10 @@ function swap_music(id) {
         oAudio.pause();
         $("#"+id).attr('src',"imges/play.jpg");
     }
+}
+
+function play_se(id){
+    var SEAudio = document.getElementById(id);
+    SEAudio.currentTime = 0;
+    SEAudio.play();
 }
