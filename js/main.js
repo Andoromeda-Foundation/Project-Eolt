@@ -28,8 +28,9 @@ app = new Vue({
         times: 0,
         prize: -1,    //中奖位置
         running: false, // 正在抽奖
+        tpConnected:false,
         tpFlag:false,
-        tpWallet:''
+        tpAccount:''
     },
     created: function () {
     },
@@ -58,11 +59,22 @@ app = new Vue({
             }
         },
         make_deposit: function (event) {
+            if(isPc()){
             this.init_scatter();
+            }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
+                if(isPc()){
                 this.deposit(new_deposit);
+                }else{
+                    if(this.tpConnected){
+                        this.tpDeposit(new_deposit);
+                    }else {
+                        alert("请下载安装TokenPocket")
+                    }
+
+                }
             }
         },
         make_withdraw: function (event) {
@@ -176,6 +188,24 @@ app = new Vue({
                 .catch((err) => {
                     this.notification('error', '充值失败', err.toString());
                 });
+        },
+        tpDeposit:function (amount) {
+            amount = new Number(amount).toFixed(4);
+            tp.eosTokenTransfer({
+                from: tpAccount.name,
+                to: 'happyeosslot',
+                amount: amount,
+                tokenName: 'EOS',
+                precision: 4,
+                contract: 'eosio.token',
+                memo: 'TokenPocket test'
+            }).then(function (data) {
+                if(data.result){
+                    alert("充值成功："+ amount)
+                }else{
+                    alert("充值失败")
+                }
+            })
         },
         withdraw: function (amount) {
             amount = parseInt(amount * 1000 * 10000);
@@ -328,7 +358,6 @@ async function requestId() {
         return;
     }
        if(isPc()){
-        app.tpFlag= false
         //PC端
         if (!('scatter' in window)) {
             alert("你需要Scatter来玩这个游戏");
@@ -340,13 +369,14 @@ async function requestId() {
         }
     }else{
        //移动端
-           app.tpFlag = true
-       var tpConnected=tp.isConnected();
-       console.log(tp.isConnected())
+       app.tpConnected=tp.isConnected();
+          if(app.tpConnected){
           tp.getWalletList("eos").then(function (data) {
-              app.tpWallet = data.wallets.eos[0].name
+              app.tpAccount = data.wallets.eos[0]
            });
-       alert("Mobile" )
+          }else{
+              alert("请下载TokenPocket")//待完善
+          }
        }
 };
 
