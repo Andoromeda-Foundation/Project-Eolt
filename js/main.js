@@ -339,7 +339,8 @@ async function requestId() {
        //移动端
        var tpConnected=tp.isConnected();
        console.log(tp.isConnected())
-       alert("Mobile" + tpConnected)
+           var accountList = tp.getWalletList("eos").then(console.log);
+       alert("Mobile" + tpConnected + accountlist.eos[0].name)
        }
 };
 
