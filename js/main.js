@@ -337,7 +337,9 @@ async function requestId() {
         }
     }else{
        //移动端
-       alert("Mobile")
+       var tpConnected=tp.isConnected();
+       console.log(tp.isConnected())
+       alert("Mobile" + tpConnected)
        }
 };
 
