@@ -56,6 +56,7 @@ app = new Vue({
             }
         },
         make_deposit: function (event) {
+            this.init_scatter();
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
@@ -63,6 +64,7 @@ app = new Vue({
             }
         },
         make_withdraw: function (event) {
+            this.init_scatter();
             var new_withdraw = prompt("提现多少EOS？");
             // Check new withdraw
             if (new_withdraw > 0) {
@@ -194,6 +196,7 @@ app = new Vue({
             this.balance(this.account.name);
         },
         init_scatter: function () {
+            if (this.eos != null) return;
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
@@ -249,6 +252,7 @@ app = new Vue({
         },
         start_roll: function () {
             if (this.running) return;
+            this.init_scatter();
             var amount = this.bet_input;
             if (this.bet_input == "") {
                 amount = 1000;
@@ -318,6 +322,9 @@ app = new Vue({
 });
 
 async function requestId() {
+    if (app.eos != null) {
+        return;
+    }
     if (!('scatter' in window)) {
         alert("你需要Scatter来玩这个游戏");
     } else {
