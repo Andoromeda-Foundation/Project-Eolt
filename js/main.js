@@ -49,6 +49,7 @@ app = new Vue({
             return baseUrl += args.join('&');
         },
         change_bet: function () {
+            play_se("se_click");
             var new_bet = parseInt(prompt("赌多少？"));
             // Check new bet
             if (new_bet > 0) {
@@ -56,6 +57,7 @@ app = new Vue({
             }
         },
         make_deposit: function (event) {
+            play_se("se_click");
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
@@ -63,6 +65,7 @@ app = new Vue({
             }
         },
         make_withdraw: function (event) {
+            play_se("se_click");
             var new_withdraw = prompt("提现多少EOS？");
             // Check new withdraw
             if (new_withdraw > 0) {
@@ -162,11 +165,13 @@ app = new Vue({
             })
         },
         deposit: function (amount) {
+            play_se("se_click");
             amount = new Number(amount).toFixed(4);
             this.notification('pending', '正在充值(' + amount + ')EOS');
             console.log(amount);
             this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "")
                 .then(() => {
+                    play_se("se_buy");
                     this.notification('succeeded', '充值成功');
                 })
                 .catch((err) => {
@@ -174,6 +179,7 @@ app = new Vue({
                 });
         },
         withdraw: function (amount) {
+            play_se("se_click");
             amount = parseInt(amount * 1000 * 10000);
             this.notification('pending', '正在兑换积分获得(' + amount + ')EOS');
             var requiredFields = this.requiredFields;
@@ -181,6 +187,7 @@ app = new Vue({
                 contract.sell(this.account.name, amount, { authorization: [`${this.account.name}@${this.account.authority}`] });
             })
                 .then(() => {
+                    play_se("se_withdraw");
                     this.notification('succeeded', '兑换成功');
                 })
                 .catch((err) => {
@@ -248,6 +255,7 @@ app = new Vue({
             return num;
         },
         start_roll: function () {
+            play_se("se_click");
             if (this.running) return;
             var amount = this.bet_input;
             if (this.bet_input == "") {
@@ -258,6 +266,7 @@ app = new Vue({
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] })
                     .then(() => {
+                        play_se("se_startrolling");
                         this.running = true;
                         this.old_credits = this.user_credits - amount;
                         this.old_bet_amount = amount;
@@ -273,6 +282,7 @@ app = new Vue({
                 });
         },
         roll_loop: function () {
+            play_se("se_rolling");
             this.times += 1;
             this.roll();
             if (this.times > this.cycle + 10 && this.prize == this.index) {
