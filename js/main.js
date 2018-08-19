@@ -325,13 +325,25 @@ async function requestId() {
     if (app.eos != null) {
         return;
     }
-    if (!('scatter' in window)) {
-        alert("你需要Scatter来玩这个游戏");
-    } else {
-        const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
-        app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-        scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
-        app.setIdentity(identity);
-    }
+       if(isPc()){
+        //PC端
+        if (!('scatter' in window)) {
+            alert("你需要Scatter来玩这个游戏");
+        } else {
+            const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+            app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+            scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+            app.setIdentity(identity);
+        }
+    }else{
+       //移动端
+       alert("Mobile")
+       }
 };
+
+//判断是PC还是移动端
+function isPc() {
+    //移动端PC端判断
+    return /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)?false:true;
+}
 
