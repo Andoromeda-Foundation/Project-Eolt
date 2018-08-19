@@ -27,7 +27,9 @@ app = new Vue({
         timer: 0,    //setTimeout的ID，用clearTimeout清除
         times: 0,
         prize: -1,    //中奖位置
-        running: false // 正在抽奖
+        running: false, // 正在抽奖
+        tpFlag:false,
+        tpWallet:''
     },
     created: function () {
     },
@@ -326,6 +328,7 @@ async function requestId() {
         return;
     }
        if(isPc()){
+        app.tpFlag= false
         //PC端
         if (!('scatter' in window)) {
             alert("你需要Scatter来玩这个游戏");
@@ -337,11 +340,11 @@ async function requestId() {
         }
     }else{
        //移动端
+           app.tpFlag = true
        var tpConnected=tp.isConnected();
        console.log(tp.isConnected())
-           var accountList = tp.getWalletList("eos").then(function (data) {
-               alert(data)
-               alert(data.wallets.eos[0].name)
+          tp.getWalletList("eos").then(function (data) {
+              app.tpWallet = data.wallets.eos[0].name
            });
        alert("Mobile" )
        }
