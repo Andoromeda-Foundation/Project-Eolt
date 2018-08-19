@@ -59,12 +59,14 @@ app = new Vue({
             }
         },
         make_deposit: function (event) {
+            alert("is pc" + isPc())
             if(isPc()){
             this.init_scatter();
             }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
+                alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
