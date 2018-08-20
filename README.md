@@ -47,8 +47,6 @@ https://andoromeda-foundation.github.io/Project-Eolt/
     keosd --config-dir ~/eos-wallet --wallet-dir ~/eos-wallet --http-server-address 127.0.0.1:8900 --http-alias localhost:8900
 
     cleos wallet create
-    
-    cleos wallet import --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 
     happyeosslot
 
