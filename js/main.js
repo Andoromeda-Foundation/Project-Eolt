@@ -189,10 +189,11 @@ app = new Vue({
                 json: true,
                 code: 'happyeosslot',
                 scope: 'happyeosslot',
-                table: 'player',
-                lower_bound: '10',
+                table: 'table1',
+                // lower_bound: '10',
                 limit: 1000
             }).then((data) => {
+                alert(data.rows[0])
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
             this.user_credits = this.user_info.credits / 10000;
             }).catch((e)=>{
