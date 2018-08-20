@@ -184,7 +184,7 @@ app = new Vue({
             })
         },
         tpBalance:function () {
-            alert("tpBlance")
+
             tp.getTableRows({
                 json: true,
                 code: 'happyeosslot',
@@ -193,7 +193,8 @@ app = new Vue({
                 // lower_bound: '10',
                 limit: 1000
             }).then((data) => {
-                alert(data.rows[0])
+                alert("tpBlance blance")
+                alert(data.rows[0].credits)
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
             this.user_credits = this.user_info.credits / 10000;
             }).catch((e)=>{
