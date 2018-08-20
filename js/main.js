@@ -163,19 +163,19 @@ app = new Vue({
                         if (last_rate >= 80) {
                             this.stop_at(rate_100);
                         } else if (last_rate >= 40) {
-                            this.stop_at(rate_50[Math.ceil(Math.random() * 2)]);
+                            this.stop_at(rate_50[Math.floor(Math.random() * 2)]);
                         } else if (last_rate >= 15) {
-                            this.stop_at(rate_20[Math.ceil(Math.random() * 3)]);
+                            this.stop_at(rate_20[Math.floor(Math.random() * 3)]);
                         } else if (last_rate >= 8) {
-                            this.stop_at(rate_10[Math.ceil(Math.random() * 3)]);
+                            this.stop_at(rate_10[Math.floor(Math.random() * 3)]);
                         } else if (last_rate >= 3) {
-                            this.stop_at(rate_5[Math.ceil(Math.random() * 4)]);
+                            this.stop_at(rate_5[Math.floor(Math.random() * 4)]);
                         } else if (last_rate >= 1) {
-                            this.stop_at(rate_2[Math.ceil(Math.random() * 4)]);
+                            this.stop_at(rate_2[Math.floor(Math.random() * 4)]);
                         } else if (last_rate >= 0.05) {
-                            this.stop_at(rate_0_1[Math.ceil(Math.random() * 5)]);
+                            this.stop_at(rate_0_1[Math.floor(Math.random() * 5)]);
                         } else if (last_rate >= 0.005) {
-                            this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
+                            this.stop_at(rate_0_0_1[Math.floor(Math.random() * 6)]);
                         }
                     }
                 }
@@ -282,7 +282,7 @@ app = new Vue({
         createHexRandom: function () {
             var num = '';
             for (i = 0; i < 64; i++) {
-                var tmp = Math.ceil(Math.random() * 15);
+                var tmp = Math.floor(Math.random() * 16);
                 if (tmp > 9) {
                     switch (tmp) {
                         case (10):
