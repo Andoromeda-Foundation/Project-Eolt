@@ -141,22 +141,24 @@ app = new Vue({
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
+                        var random = Math.random();
+                        // console.log(random);
                         if (last_rate >= 80) {
                             this.stop_at(rate_100);
                         } else if (last_rate >= 40) {
-                            this.stop_at(rate_50[Math.ceil(Math.random() * 2)]);
+                            this.stop_at(rate_50[Math.floor(random) * 2]);
                         } else if (last_rate >= 15) {
-                            this.stop_at(rate_20[Math.ceil(Math.random() * 3)]);
+                            this.stop_at(rate_20[Math.floor(random * 3)]);
                         } else if (last_rate >= 8) {
-                            this.stop_at(rate_10[Math.ceil(Math.random() * 3)]);
+                            this.stop_at(rate_10[Math.floor(random * 3)]);
                         } else if (last_rate >= 3) {
-                            this.stop_at(rate_5[Math.ceil(Math.random() * 4)]);
+                            this.stop_at(rate_5[Math.floor(random * 4)]);
                         } else if (last_rate >= 1) {
-                            this.stop_at(rate_2[Math.ceil(Math.random() * 4)]);
+                            this.stop_at(rate_2[Math.floor(random * 4)]);
                         } else if (last_rate >= 0.05) {
-                            this.stop_at(rate_0_1[Math.ceil(Math.random() * 5)]);
+                            this.stop_at(rate_0_1[Math.floor(random * 5)]);
                         } else if (last_rate >= 0.005) {
-                            this.stop_at(rate_0_0_1[Math.ceil(Math.random() * 6)]);
+                            this.stop_at(rate_0_0_1[Math.floor(random * 6)]);
                         }
                     }
                 }
@@ -168,7 +170,7 @@ app = new Vue({
             play_se("se_click");
             amount = new Number(amount).toFixed(4);
             this.notification('pending', '正在充值(' + amount + ')EOS');
-            console.log(amount);
+            // console.log(amount);
             this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "")
                 .then(() => {
                     play_se("se_buy");
@@ -306,7 +308,7 @@ app = new Vue({
                         }
                     } else {
                         this.balance();
-                        console.log("balancing");
+                        // console.log("balancing");
                     }
                 }
                 if (this.speed < 40) {
@@ -319,7 +321,7 @@ app = new Vue({
             }
         },
         stop_at: function (stop_position) {
-            console.log("time to stop");
+            // console.log("time to stop" + stop_position);
             if (this.prize == -1) {
                 this.prize = stop_position
             }
