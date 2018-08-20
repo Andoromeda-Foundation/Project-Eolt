@@ -61,14 +61,14 @@ app = new Vue({
         },
         make_deposit: function (event) {
             play_se("se_click");
-            alert("is pc" + isPc())
+            // alert("is pc" + isPc())
             if(isPc()){
             this.init_scatter();
             }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
-                alert("is pc" + isPc())
+                // alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
@@ -181,6 +181,22 @@ app = new Vue({
                 }
             }).catch((e) => {
                 console.log(e);
+            })
+        },
+        tpBalance:function () {
+            alert("tpBlance")
+            tp.getTableRows({
+                json: true,
+                code: 'happyeosslot',
+                scope: 'happyeosslot',
+                table: 'player',
+                lower_bound: '10',
+                limit: 1000
+            }).then((data) => {
+                this.user_info = data.rows.find(acc => acc.account == this.account.name);
+            this.user_credits = this.user_info.credits / 10000;
+            }).catch((e)=>{
+                alert(e)
             })
         },
         deposit: function (amount) {
@@ -384,6 +400,8 @@ async function requestId() {
        //移动端
        app.tpConnected=tp.isConnected();
           if(app.tpConnected){
+              //test
+              app.tpBalance();
           tp.getWalletList("eos").then(function (data) {
               app.tpAccount = data.wallets.eos[0]
            });
