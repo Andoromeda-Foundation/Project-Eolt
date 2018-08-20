@@ -15,6 +15,8 @@
 ### 启动项目
     npm start
 
+**注意** 在测试的时候，需要手动清理浏览器缓存，才能应用更改！
+
 ### 在浏览器run
 http://localhost:5000/
 
@@ -45,8 +47,6 @@ https://andoromeda-foundation.github.io/Project-Eolt/
     keosd --config-dir ~/eos-wallet --wallet-dir ~/eos-wallet --http-server-address 127.0.0.1:8900 --http-alias localhost:8900
 
     cleos wallet create
-    
-    cleos wallet import --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 
     happyeosslot
 

@@ -58,9 +58,15 @@ app = new Vue({
         },
         make_deposit: function (event) {
             play_se("se_click");
+            // alert("is pc" + isPc())
+            if(isPc()){
+            this.init_scatter();
+            }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
+                // alert("is pc" + isPc())
+                if(isPc()){
                 this.deposit(new_deposit);
             }
         },
@@ -166,6 +172,24 @@ app = new Vue({
                 console.log(e);
             })
         },
+        tpBalance:function () {
+
+            tp.getTableRows({
+                json: true,
+                code: 'happyeosslot',
+                scope: 'happyeosslot',
+                table: 'table1',
+                // lower_bound: '10',
+                limit: 1000
+            }).then((data) => {
+                alert("tpBlance data")
+                alert(data)
+                this.user_info = data.rows.find(acc => acc.account == this.account.name);
+            this.user_credits = this.user_info.credits / 10000;
+            }).catch((e)=>{
+                alert(e)
+            })
+        },
         deposit: function (amount) {
             play_se("se_click");
             amount = new Number(amount).toFixed(4);
@@ -228,7 +252,7 @@ app = new Vue({
         createHexRandom: function () {
             var num = '';
             for (i = 0; i < 64; i++) {
-                var tmp = Math.ceil(Math.random() * 15);
+                var tmp = Math.floor(Math.random() * 16);
                 if (tmp > 9) {
                     switch (tmp) {
                         case (10):
@@ -340,5 +364,28 @@ async function requestId() {
         scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
         app.setIdentity(identity);
     }
+       if(isPc()){
+        //PC端
+        if (!('scatter' in window)) {
+            alert("你需要Scatter来玩这个游戏");
+        } else {
+            const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+            app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+            scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+            app.setIdentity(identity);
+        }
+    }else{
+       //移动端
+       app.tpConnected=tp.isConnected();
+          if(app.tpConnected){
+              //test
+              app.tpBalance();
+          tp.getWalletList("eos").then(function (data) {
+              app.tpAccount = data.wallets.eos[0]
+           });
+          }else{
+              alert("请下载TokenPocket")//待完善
+          }
+       }
 };
 
