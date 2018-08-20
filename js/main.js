@@ -27,10 +27,7 @@ app = new Vue({
         timer: 0,    //setTimeout的ID，用clearTimeout清除
         times: 0,
         prize: -1,    //中奖位置
-        running: false, // 正在抽奖
-        tpConnected:false,
-        tpFlag:false,
-        tpAccount:''
+        running: false // 正在抽奖
     },
     created: function () {
     },
@@ -71,20 +68,10 @@ app = new Vue({
                 // alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
-                }else{
-                    alert(this.tpConnected)
-                    if(this.tpConnected){
-                        this.tpDeposit(new_deposit);
-                    }else {
-                        alert("请下载安装TokenPocket")
-                    }
-
-                }
             }
         },
         make_withdraw: function (event) {
             play_se("se_click");
-            this.init_scatter();
             var new_withdraw = prompt("提现多少EOS？");
             // Check new withdraw
             if (new_withdraw > 0) {
@@ -151,7 +138,7 @@ app = new Vue({
                 var rate_50 = new Array(11, 24);
                 var rate_20 = new Array(6, 16, 21);
                 var rate_10 = new Array(1, 10, 26);
-                var rate_5 = new Array(3, 13, 18, 21);
+                var rate_5 = new Array(3, 13, 18, 22);
                 var rate_2 = new Array(2, 8, 17, 28);
                 var rate_0_1 = new Array(5, 9, 12, 14, 19);
                 var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
@@ -160,22 +147,24 @@ app = new Vue({
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
+                        var random = Math.random();
+                        // console.log(random);
                         if (last_rate >= 80) {
                             this.stop_at(rate_100);
                         } else if (last_rate >= 40) {
-                            this.stop_at(rate_50[Math.floor(Math.random() * 2)]);
+                            this.stop_at(rate_50[Math.floor(random) * 2]);
                         } else if (last_rate >= 15) {
-                            this.stop_at(rate_20[Math.floor(Math.random() * 3)]);
+                            this.stop_at(rate_20[Math.floor(random * 3)]);
                         } else if (last_rate >= 8) {
-                            this.stop_at(rate_10[Math.floor(Math.random() * 3)]);
+                            this.stop_at(rate_10[Math.floor(random * 3)]);
                         } else if (last_rate >= 3) {
-                            this.stop_at(rate_5[Math.floor(Math.random() * 4)]);
+                            this.stop_at(rate_5[Math.floor(random * 4)]);
                         } else if (last_rate >= 1) {
-                            this.stop_at(rate_2[Math.floor(Math.random() * 4)]);
+                            this.stop_at(rate_2[Math.floor(random * 4)]);
                         } else if (last_rate >= 0.05) {
-                            this.stop_at(rate_0_1[Math.floor(Math.random() * 5)]);
+                            this.stop_at(rate_0_1[Math.floor(random * 5)]);
                         } else if (last_rate >= 0.005) {
-                            this.stop_at(rate_0_0_1[Math.floor(Math.random() * 6)]);
+                            this.stop_at(rate_0_0_1[Math.floor(random * 6)]);
                         }
                     }
                 }
@@ -205,7 +194,7 @@ app = new Vue({
             play_se("se_click");
             amount = new Number(amount).toFixed(4);
             this.notification('pending', '正在充值(' + amount + ')EOS');
-            console.log(amount);
+            // console.log(amount);
             this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "")
                 .then(() => {
                     play_se("se_buy");
@@ -214,24 +203,6 @@ app = new Vue({
                 .catch((err) => {
                     this.notification('error', '充值失败', err.toString());
                 });
-        },
-        tpDeposit:function (amount) {
-            amount = new Number(amount).toFixed(4);
-            tp.eosTokenTransfer({
-                from: tpAccount.name,
-                to: 'happyeosslot',
-                amount: amount,
-                tokenName: 'EOS',
-                precision: 4,
-                contract: 'eosio.token',
-                memo: 'TokenPocket test'
-            }).then(function (data) {
-                if(data.result){
-                    alert("充值成功："+ amount)
-                }else{
-                    alert("充值失败")
-                }
-            })
         },
         withdraw: function (amount) {
             play_se("se_click");
@@ -256,7 +227,6 @@ app = new Vue({
             this.balance(this.account.name);
         },
         init_scatter: function () {
-            if (this.eos != null) return;
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
@@ -313,7 +283,6 @@ app = new Vue({
         start_roll: function () {
             play_se("se_click");
             if (this.running) return;
-            this.init_scatter();
             var amount = this.bet_input;
             if (this.bet_input == "") {
                 amount = 1000;
@@ -363,6 +332,7 @@ app = new Vue({
                         }
                     } else {
                         this.balance();
+                        // console.log("balancing");
                     }
                 }
                 if (this.speed < 40) {
@@ -375,6 +345,7 @@ app = new Vue({
             }
         },
         stop_at: function (stop_position) {
+            // console.log("time to stop" + stop_position);
             if (this.prize == -1) {
                 this.prize = stop_position
             }
@@ -385,8 +356,13 @@ app = new Vue({
 });
 
 async function requestId() {
-    if (app.eos != null) {
-        return;
+    if (!('scatter' in window)) {
+        alert("你需要Scatter来玩这个游戏");
+    } else {
+        const identity = await scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.account = identity.accounts.find(acc => acc.blockchain === 'eos');
+        scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] });
+        app.setIdentity(identity);
     }
        if(isPc()){
         //PC端
@@ -412,10 +388,4 @@ async function requestId() {
           }
        }
 };
-
-//判断是PC还是移动端
-function isPc() {
-    //移动端PC端判断
-    return /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)?false:true;
-}
 
