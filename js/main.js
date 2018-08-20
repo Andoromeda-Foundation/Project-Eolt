@@ -68,6 +68,7 @@ app = new Vue({
                 // alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
+                }
             }
         },
         make_withdraw: function (event) {
