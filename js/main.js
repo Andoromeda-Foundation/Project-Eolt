@@ -61,14 +61,14 @@ app = new Vue({
         },
         make_deposit: function (event) {
             play_se("se_click");
-            // alert("is pc" + isPc())
+            alert("is pc" + isPc())
             if(isPc()){
             this.init_scatter();
             }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
-                // alert("is pc" + isPc())
+                alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
@@ -151,7 +151,7 @@ app = new Vue({
                 var rate_50 = new Array(11, 24);
                 var rate_20 = new Array(6, 16, 21);
                 var rate_10 = new Array(1, 10, 26);
-                var rate_5 = new Array(3, 13, 18, 21);
+                var rate_5 = new Array(3, 13, 18, 22);
                 var rate_2 = new Array(2, 8, 17, 28);
                 var rate_0_1 = new Array(5, 9, 12, 14, 19);
                 var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
@@ -160,22 +160,24 @@ app = new Vue({
                 if (this.running) {
                     if (this.user_credits != this.old_credits) {
                         var last_rate = (this.user_credits - this.old_credits) / this.old_bet_amount;
+                        var random = Math.random();
+                        // console.log(random);
                         if (last_rate >= 80) {
                             this.stop_at(rate_100);
                         } else if (last_rate >= 40) {
-                            this.stop_at(rate_50[Math.floor(Math.random() * 2)]);
+                            this.stop_at(rate_50[Math.floor(random) * 2]);
                         } else if (last_rate >= 15) {
-                            this.stop_at(rate_20[Math.floor(Math.random() * 3)]);
+                            this.stop_at(rate_20[Math.floor(random * 3)]);
                         } else if (last_rate >= 8) {
-                            this.stop_at(rate_10[Math.floor(Math.random() * 3)]);
+                            this.stop_at(rate_10[Math.floor(random * 3)]);
                         } else if (last_rate >= 3) {
-                            this.stop_at(rate_5[Math.floor(Math.random() * 4)]);
+                            this.stop_at(rate_5[Math.floor(random * 4)]);
                         } else if (last_rate >= 1) {
-                            this.stop_at(rate_2[Math.floor(Math.random() * 4)]);
+                            this.stop_at(rate_2[Math.floor(random * 4)]);
                         } else if (last_rate >= 0.05) {
-                            this.stop_at(rate_0_1[Math.floor(Math.random() * 5)]);
+                            this.stop_at(rate_0_1[Math.floor(random * 5)]);
                         } else if (last_rate >= 0.005) {
-                            this.stop_at(rate_0_0_1[Math.floor(Math.random() * 6)]);
+                            this.stop_at(rate_0_0_1[Math.floor(random * 6)]);
                         }
                     }
                 }
@@ -193,8 +195,8 @@ app = new Vue({
                 // lower_bound: '10',
                 limit: 1000
             }).then((data) => {
-                alert("tpBlance blance")
-                alert(data.rows[0].credits)
+                alert("tpBlance data")
+                alert(data)
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
             this.user_credits = this.user_info.credits / 10000;
             }).catch((e)=>{
@@ -205,7 +207,7 @@ app = new Vue({
             play_se("se_click");
             amount = new Number(amount).toFixed(4);
             this.notification('pending', '正在充值(' + amount + ')EOS');
-            console.log(amount);
+            // console.log(amount);
             this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "")
                 .then(() => {
                     play_se("se_buy");
@@ -363,6 +365,7 @@ app = new Vue({
                         }
                     } else {
                         this.balance();
+                        // console.log("balancing");
                     }
                 }
                 if (this.speed < 40) {
