@@ -24,22 +24,22 @@ if(ENV === 'dev'){
     // remote testnet
     network = {
         blockchain: 'eos',
-        host: '120.27.237.92',
-        port: 8888,
-        chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-        protocol: "http"
+        host: 'api-kylin.eosasia.one',
+        port: 443,
+        chainId: "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191",
+        protocol: "https"
     };
     options = {
         broadcast: true,
         sign: true,
-        chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-        httpEndpoint: "http://120.27.237.92:8888"
+        chainId: "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191",
+        httpEndpoint: "https://api-kylin.eosasia.one:443"
     };
 } else if( ENV === 'mainnet'){
     // mainnet
     network = {
         blockchain: 'eos',
-        host: 'api-direct.eosasia.one',
+        host: 'mainnet.genereos.io',
         port: 443,
         chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
         protocol: "https"
@@ -49,7 +49,7 @@ if(ENV === 'dev'){
         broadcast: true,
         sign: true,
         chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        httpEndpoint: "https://api-direct.eosasia.one:443"
+        httpEndpoint: "https://mainnet.genereos.io:443"
     };
 } else {
     throw("network config error");

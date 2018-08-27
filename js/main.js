@@ -61,14 +61,12 @@ app = new Vue({
         },
         make_deposit: function (event) {
             play_se("se_click");
-            alert("is pc" + isPc())
-            if(isPc()){
+            //alert("is pc" + isPc())
             this.init_scatter();
-            }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
-                alert("is pc" + isPc())
+                //alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
@@ -259,6 +257,7 @@ app = new Vue({
         },
         init_scatter: function () {
             if (this.eos != null) return;
+            if (!isPc()) return;
             if (!('scatter' in window)) {
                 this.notification('important', '没有找到Scatter', 'Scatter是一款EOS的Chrome插件，运行本游戏需要使用Chrome并安装Scatter插件。', '我知道了');
             } else {
@@ -411,7 +410,7 @@ async function requestId() {
               app.tpAccount = data.wallets.eos[0]
            });
           }else{
-              alert("请下载TokenPocket")//待完善
+              alert("请下载TokenPocket") //待完善
           }
        }
 };
