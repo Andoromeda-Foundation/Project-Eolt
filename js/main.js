@@ -61,18 +61,18 @@ app = new Vue({
         },
         make_deposit: function (event) {
             play_se("se_click");
-            alert("is pc" + isPc())
+            // alert("is pc" + isPc())
             if(isPc()){
             this.init_scatter();
             }
             var new_deposit = prompt("充值多少EOS？");
             // Check new deposit
             if (new_deposit > 0) {
-                alert("is pc" + isPc())
+                // alert("is pc" + isPc())
                 if(isPc()){
                 this.deposit(new_deposit);
                 }else{
-                    alert(this.tpConnected)
+                    // alert(this.tpConnected)
                     if(this.tpConnected){
                         this.tpDeposit(new_deposit);
                     }else {
@@ -195,8 +195,8 @@ app = new Vue({
                 // lower_bound: '10',
                 limit: 1000
             }).then((data) => {
-                alert("tpBlance data")
-                alert(data)
+                // alert("tpBlance data")
+                // alert(data)
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
             this.user_credits = this.user_info.credits / 10000;
             }).catch((e)=>{
