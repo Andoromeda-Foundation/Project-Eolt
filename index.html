@@ -64,8 +64,10 @@
                             </div>-->
                         </div>
                         <div class="center-box-center-right">
-                            <div class="credits">credits</div>
-                            <div class="credits-num">{{ user_credits||0 }}</div>
+                            <!-- <div class="credits">Current EOP</div>
+                            <div class="credits-num">{{ eop.toFixed(4) || 0 }}</div> -->
+                            <div class="credits">Balance</div>
+                            <div class="credits-num">{{ user_eos_balance || 0 }}</div>
                             <div class="small"> </div>
                         </div>
                     </div>
@@ -112,9 +114,8 @@
                 <div class="right"></div>
             </div>
             <button id="spinId" class="spin" v-on:click="start_roll">摇起来！</button>
-            <button class="input-money" v-on:click="make_deposit">充值</button>
-            <button class="get-money" v-on:click="make_withdraw">提取</button>
-            <!-- <button class="gen" onclick="app.stop_at(15)">Gen</button> -->
+            <button class="input-money" v-on:click="make_deposit">购买股份</button>
+            <button class="get-money" v-on:click="make_withdraw">出售股份</button>
             <!--   <button class="leave"> Leave</button>-->
             <div class="music-play" id="musicId">
                 <img id="imgId" src="imges/pause.jpg">
