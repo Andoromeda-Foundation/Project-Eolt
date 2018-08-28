@@ -200,7 +200,7 @@ app = new Vue({
                 this.user_info = data.rows.find(acc => acc.account == this.account.name);
             this.user_credits = this.user_info.credits / 10000;
             }).catch((e)=>{
-                alert(e)
+                // alert(e)
             })
         },
         deposit: function (amount) {
@@ -331,13 +331,13 @@ app = new Vue({
                         this.old_bet_amount = amount;
                         this.roll_loop();
                     }).catch((err) => {
-                        alert(err.toString());
+                        // alert(err.toString());
                     })
             })
                 .then(() => {
                 })
                 .catch((err) => {
-                    alert(err.toString());
+                    // alert(err.toString());
                 });
         },
         roll_loop: function () {
