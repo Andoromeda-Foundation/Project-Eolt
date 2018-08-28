@@ -114,8 +114,8 @@
                 <div class="right"></div>
             </div>
             <button id="spinId" class="spin" v-on:click="start_roll">摇起来！</button>
-            <button class="input-money" v-on:click="make_deposit">购买股份</button>
-            <button class="get-money" v-on:click="make_withdraw">出售股份</button>
+            <button class="input-money" v-show="false" v-on:click="make_deposit">购买股份</button>
+            <button class="get-money" v-show="false"  v-on:click="make_withdraw">出售股份</button>
             <!--   <button class="leave"> Leave</button>-->
             <div class="music-play" id="musicId">
                 <img id="imgId" src="imges/pause.jpg">
