@@ -335,7 +335,9 @@ app = new Vue({
             play_se("se_click");
             if (this.running) return;
             this.init_scatter();
-            var amount = this.bet_input;
+
+                    
+            var amount = new Number(this.bet_input).toFixed(4);
             if (this.bet_input == "") {
                 amount = "1.0000"
             }
