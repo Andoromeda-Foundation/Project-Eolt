@@ -41,7 +41,7 @@ app = new Vue({
         },
         change_bet: function () {
             play_se("se_click");
-            var new_bet = parseInt(prompt("赌多少？"));
+            var new_bet = parseFloat(prompt("赌多少？"));
             // Check new bet
             if (new_bet > 0) {
                 this.bet_input = new Number(new_bet).toFixed(4);
@@ -335,7 +335,9 @@ app = new Vue({
             play_se("se_click");
             if (this.running) return;
             this.init_scatter();
-            var amount = this.bet_input;
+
+                    
+            var amount = new Number(this.bet_input).toFixed(4);
             if (this.bet_input == "") {
                 amount = "1.0000"
             }
