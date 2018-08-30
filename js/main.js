@@ -70,7 +70,7 @@ app = new Vue({
             happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.rows[0].deposit.balance.split(' ', 1)[0];
-            this.eop = happyeosslot_balance / (happyeosslot_true_balance - 10000);
+            this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
