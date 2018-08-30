@@ -7,6 +7,7 @@ app = new Vue({
         identity: null,
         user_hpy_balance: 0,
         user_eos_balance: 0,
+        actions: null,
         last_bet: null,
         bet_input: "1.0000",
         bet_result: null,
@@ -57,6 +58,7 @@ app = new Vue({
             this.eos.getCurrencyBalance('eosio.token', this.account.name).then(x => {
                 this.user_eos_balance = x[0].split(' ', 1)[0];
             });
+            this.stop_ata()
         },
         get_current_eop: async function () {
             var happyeosslot_balance = await this.eos.getCurrencyBalance('eosio.token', 'happyeosslot');
@@ -394,6 +396,18 @@ app = new Vue({
                 }
                 this.timer = setTimeout(this.roll_loop, this.speed); //循环调用
             }
+        },
+        stop_ata: async function() {
+            // Sorry SuperONE, EOSAsia have the BETTER get_actions API than yours,  
+            const {data} = await axios({
+                method:'post',
+                url: 'https://api1.eosasia.one/v1/history/get_actions',
+                headers: { 'content-type': 'application/x-www-form-urlencoded' },
+                data: {"account_name":"happyeosslot","pos":-1,"offset":-300}
+            })
+            this.actions = data.actions
+                .map(({action_trace}) => action_trace.act.data)
+            // alert(res)
         },
         stop_at: function (stop_position) {
             if (this.prize == -1) {

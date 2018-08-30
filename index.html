@@ -5,12 +5,15 @@
     <title>EOS</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <script src="js/lib/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
     <script src="js/lib/eos.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/cube-top.css">
 <link rel="stylesheet" type="text/css" href="css/cube.css">
 <link rel="stylesheet/less" type="text/css" href="css/main.less">
+<!-- <link href="https://cdn.bootcss.com/bulma/0.7.1/css/bulma.min.css" rel="stylesheet"> -->
+
 
 <body>
     <div class="app" id="app">
@@ -122,7 +125,31 @@
             </div>
             <p> EOP：{{ eop }} </p>
             <p> HPY余额: {{ user_hpy_balance }}</p>
+
+            <div class="actions-table">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th><abbr title="Position">#</abbr></th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Qty</th>
+                        <th>Memo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(action, idx) in actions">
+                        <th>{{idx}}</th>
+                        <td>{{action.from}}</td>
+                        <td>{{action.to}}</td>
+                        <td>{{action.quantity}}</td>
+                        <td>{{action.memo}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
+        
     </div>
 
     <audio id="audioId" loop="loop" preload="auto" autoplay="autoplay">
