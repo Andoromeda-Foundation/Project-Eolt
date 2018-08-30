@@ -53,7 +53,7 @@ app = new Vue({
         },
         change_bet: function () {
             play_se("se_click");
-            var new_bet = parseInt(prompt("赌多少？"));
+            var new_bet = parseInt(prompt("赌多少EOS？"));
             // Check new bet
             if (new_bet > 0) {
                 this.bet_input = new_bet;
