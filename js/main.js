@@ -4,8 +4,10 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
+        identity: null,
         user_hpy_balance: 0,
         user_eos_balance: 0,
+        eos_net: null,
         last_bet: null,
         bet_input: "1.0000",
         bet_result: null,
@@ -254,9 +256,10 @@ app = new Vue({
         },
         setIdentity: function (identity) {
             this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-            this.eos = scatter.eos(network, Eos, {});
+            this.identity = identity;
+            this.eos = scatter.eos(this.eos_net, Eos, {});
             this.requiredFields = {
-                accounts: [network]
+                accounts: [this.eos_net]
             };
             this.get_current_balance();
         },
@@ -274,10 +277,16 @@ app = new Vue({
                             }]
                         })
                         .then(identity => {
-                            this.setIdentity(identity);
+                            if (this.eos == null) {
+                                this.setIdentity(identity);
+                            }
                         })
                         .catch(err => {
-                            alert("Scatter 初始化失败.");
+                            // alert("Scatter 初始化失败.");
+                            if ('host_list' in network) {
+                                network.host_list[0];
+                                network.host_list.splice(0, 1);
+                            }
                         });
                 }
             } else {
