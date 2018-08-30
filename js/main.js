@@ -4,6 +4,7 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
+        user_hpy_balance: 0,
         user_eos_balance: 0,
         last_bet: null,
         bet_input: "1.0000",
@@ -49,6 +50,9 @@ app = new Vue({
         },
         get_current_balance: function () {
             this.get_current_eop();
+            this.eos.getCurrencyBalance('happyeosslot', this.account.name).then(x => {
+                this.user_hpy_balance = x[0].split(' ', 1)[0];
+            })
             this.eos.getCurrencyBalance('eosio.token', this.account.name).then(x => {
                 this.user_eos_balance = x[0].split(' ', 1)[0];
             });
@@ -73,7 +77,7 @@ app = new Vue({
         make_deposit: function (event) {
             play_se("se_click");
             this.init_scatter();
-            var new_deposit = prompt("充值多少EOS？");
+            var new_deposit = prompt("购买多少EOS的股份？");
             // Check new deposit
             if (new_deposit > 0) {
                 if (isPc()) {
@@ -91,7 +95,7 @@ app = new Vue({
         make_withdraw: function (event) {
             play_se("se_click");
             this.init_scatter();
-            var new_withdraw = prompt("出售多少HPY？");
+            var new_withdraw = prompt("出售多少HPY（股份）？");
             // Check new withdraw
             if (new_withdraw > 0) {
                 this.withdraw(new_withdraw);
