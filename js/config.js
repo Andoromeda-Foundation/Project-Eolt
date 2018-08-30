@@ -39,17 +39,18 @@ if(ENV === 'dev'){
     // mainnet
     network = {
         blockchain: 'eos',
-        host: 'mainnet.genereos.io',
+        host: 'api1.eosasia.one',
         port: 443,
         chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        protocol: "https"
+        protocol: "http"
     };
 
     options = {
         broadcast: true,
         sign: true,
         chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-        httpEndpoint: "http://mainnet.genereos.io:443"
+        httpEndpoint: "http://api1.eosasia.one:443"         
+//      httpEndpoint: "http://mainnet.genereos.io:443"
     };
 } else {
     throw("network config error");
