@@ -62,6 +62,9 @@
                             <div class="bet-num" onclick="app.change_bet()">{{ bet_input||0 }}
                                 <span class="tooltiptext">点击修改Bet数额</span>
                             </div>
+                            <div class="bet">EOP</div>
+                            <div class="bet-num">{{ eop||0 }}
+                            </div>
 
                             <!-- <div class="cirlce-left"></div> -->
                         </div>
@@ -76,7 +79,9 @@
                             <div class="credits-num">{{ eop.toFixed(4) || 0 }}</div> -->
                             <div class="credits">Balance</div>
                             <div class="credits-num">{{ user_eos_balance || 0 }}</div>
-                            <div class="small"> </div>
+                         <!--   <div class="small"> </div>-->
+                            <div class="credits">HPY</div>
+                            <div class="credits-num">{{ user_hpy_balance || 0 }}</div>
                         </div>
                     </div>
                     <div class="center-box-bottom">
@@ -128,8 +133,8 @@
             <div class="music-play" id="musicId">
                 <img id="imgId" src="imges/pause.jpg">
             </div>
-            <p> EOP：{{ eop }} </p>
-            <p> HPY余额: {{ user_hpy_balance }}</p>
+          <!--  <p> EOP：{{ eop }} </p>
+            <p> HPY余额: {{ user_hpy_balance }}</p>-->
         </div>
     </div>
 

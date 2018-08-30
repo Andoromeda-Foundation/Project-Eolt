@@ -119,16 +119,16 @@ body{
 
 .bet{
 	height: 50px;
-	font-size:60px;
+	font-size:50px;
 	color:#f6ff00;
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 800;
-	margin-top: 30px;
+	margin-top: 5px;
 	text-shadow: 5px 5px 5px #000000;
 }
 .bet-num{
-	font-size:80px;
+	font-size:50px;
 	color:#ffffff;
 	letter-spacing:0;
 	text-align:center;
@@ -137,6 +137,7 @@ body{
 	box-shadow: 0 5px 0 #23a4ff;
 	width: 100px;
 	margin-left: 130px;
+	margin-bottom: 50px;
 }
 .bet-num .tooltiptext{
 	visibility: hidden;
@@ -194,7 +195,7 @@ body{
 	font-weight: 900;
 	border-bottom: 5px solid #23a4ff;*/
 	height: 50px;
-	font-size:60px;
+	font-size:50px;
 	color:#f6ff00;
 	letter-spacing:0;
 	text-align: center;
@@ -218,11 +219,11 @@ body{
 	letter-spacing:0;
 	text-align:center;
 	font-weight: 800;
-	margin-top: 30px;
+	margin-top: 5px;
 	text-shadow: 5px 5px 5px #000000;
 }
 .credits-num{
-	font-size: 80px;
+	font-size: 50px;
 	color: #ffffff;
 	letter-spacing: 0;
 	text-align: center;
@@ -231,6 +232,7 @@ body{
 	box-shadow: 0 5px 0 #23a4ff;
 	width: 100px;
 	margin-left: 40%;
+	margin-bottom: 50px;
 }
 .small{
 	height:60px;
