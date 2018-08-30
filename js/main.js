@@ -20,7 +20,7 @@ app = new Vue({
         prize: -1, //中奖位置
         running: false, // 正在抽奖
         tpConnected: false,
-        eop: 1, // 经营状况系数
+        eop:1, // 经营状况系数
         tpAccount: null
     },
     created: function () {},

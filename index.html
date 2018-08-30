@@ -63,7 +63,7 @@
                                 <span class="tooltiptext">点击修改Bet数额</span>
                             </div>
                             <div class="bet">EOP</div>
-                            <div class="bet-num">{{ eop||0 }}
+                            <div class="bet-num">{{ (eop!=""?eop.toFixed(4):eop)||0 }}
                             </div>
 
                             <!-- <div class="cirlce-left"></div> -->
@@ -81,7 +81,7 @@
                             <div class="credits-num">{{ user_eos_balance || 0 }}</div>
                          <!--   <div class="small"> </div>-->
                             <div class="credits">HPY</div>
-                            <div class="credits-num">{{ user_hpy_balance || 0 }}</div>
+                            <div class="credits-num">{{ (user_hpy_balance!=""?user_hpy_balance.toFixed(4):user_hpy_balance) || 0 }}</div>
                         </div>
                     </div>
                     <div class="center-box-bottom">
