@@ -403,6 +403,7 @@ app = new Vue({
             })
             this.actions = data.actions
                 .map(({action_trace}) => action_trace.act.data)
+                .filter(action => action.quantity) // No Reveal Blank Data will be shown
             // alert(res)
         },
         stop_at: function (stop_position) {
