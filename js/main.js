@@ -4,7 +4,6 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
-        identity: null,
         user_hpy_balance: 0,
         user_eos_balance: 0,
         actions: null,
@@ -22,7 +21,7 @@ app = new Vue({
         prize: -1, //中奖位置
         running: false, // 正在抽奖
         tpConnected: false,
-        eop: 1, // 经营状况系数
+        eop:1, // 经营状况系数
         tpAccount: null
     },
     created: function () {},
@@ -257,7 +256,6 @@ app = new Vue({
         },
         setIdentity: function (identity) {
             this.account = identity.accounts.find(acc => acc.blockchain === 'eos');
-            this.identity = identity;
             this.eos = scatter.eos(network, Eos, {});
             this.requiredFields = {
                 accounts: [network]
@@ -278,9 +276,7 @@ app = new Vue({
                             }]
                         })
                         .then(identity => {
-                            if (this.eos == null) {
-                                this.setIdentity(identity);
-                            }
+                            this.setIdentity(identity);
                         })
                         .catch(err => {
                             alert("Scatter 初始化失败.");

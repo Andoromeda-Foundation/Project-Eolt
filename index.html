@@ -16,8 +16,16 @@
 
 
 <body>
-    <div class="app" id="app">
-        <div class="main">
+<div class="app" id="app">
+    <div  class="header-content">
+        <ul>
+            <li onclick="implementFun()"><a>游戏规则</a></li>
+            <li><a href="https://github.com/Andoromeda-Foundation/Project-Eolt">项目代码</a></li>
+            <li><a href="https://t.me/CryptoHero_Official">社区</a></li>
+            <li><a href="https://discordapp.com/invite/nMXUYGQ">讨论</a> </li>
+        </ul>
+    </div>
+    <div class="main" >
             <div class="adorn-top"></div>
             <div class="adorn-bottom"></div>
             <div class="box1-left">
@@ -57,6 +65,9 @@
                             <div class="bet-num" onclick="app.change_bet()">{{ bet_input||0 }}
                                 <span class="tooltiptext">点击修改Bet数额</span>
                             </div>
+                            <div class="bet">EOP</div>
+                            <div class="bet-num">{{ (eop!=""?eop.toFixed(4):eop)||0 }}
+                            </div>
 
                             <!-- <div class="cirlce-left"></div> -->
                         </div>
@@ -71,7 +82,9 @@
                             <div class="credits-num">{{ eop.toFixed(4) || 0 }}</div> -->
                             <div class="credits">Balance</div>
                             <div class="credits-num">{{ user_eos_balance || 0 }}</div>
-                            <div class="small"> </div>
+                         <!--   <div class="small"> </div>-->
+                            <div class="credits">HPY</div>
+                            <div class="credits-num">{{ (user_hpy_balance!=""?user_hpy_balance.toFixed(4):user_hpy_balance) || 0 }}</div>
                         </div>
                     </div>
                     <div class="center-box-bottom">
@@ -123,9 +136,6 @@
             <div class="music-play" id="musicId">
                 <img id="imgId" src="imges/pause.jpg">
             </div>
-            <p> EOP：{{ eop }} </p>
-            <p> HPY余额: {{ user_hpy_balance }}</p>
-
             <div class="actions-table">
                 <table class="table">
                     <thead>
@@ -148,6 +158,8 @@
                     </tbody>
                   </table>
             </div>
+          <!--  <p> EOP：{{ eop }} </p>
+            <p> HPY余额: {{ user_hpy_balance }}</p>-->
         </div>
         
     </div>
@@ -186,8 +198,8 @@
     <script src="js/main.js"></script>
     <script>
         setTimeout(function () {
-            app.init_scatter(); // change to on load.
-        }, 2000);
+            requestId(); // change to on load.
+        }, 1000);
     </script>
     <script>
         $("#musicId").on("click", function () {
