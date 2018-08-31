@@ -237,7 +237,7 @@ app = new Vue({
         },
         withdraw: function (amount) {
             play_se("se_click");
-            //amount = new Number(amount; //.toFixed(4);
+            amount = new Number(amount).toFixed(4);
             var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', {
                     requiredFields
